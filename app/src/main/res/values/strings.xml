@@ -19,4 +19,10 @@
         <item>30분전</item>
         <item>1시간전</item>
     </string-array>
+    <string name="startDay">시작요일</string>
+    <string-array
+        name="startDay">
+        <item>일요일</item>
+        <item>월요일</item>
+    </string-array>
 </resources>
