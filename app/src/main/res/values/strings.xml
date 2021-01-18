@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Calendar</string>
+    <string name="alarmSet">알람</string>
+    <string-array
+        name="alarmSetting">
+        <item>없음</item>
+        <item>무음</item>
+        <item>진동</item>
+        <item>소리</item>
+        <item>진동+소리</item>
+    </string-array>
+    <string name="alarmTime">설정 시간</string>
+    <string-array
+        name="alarmTimer">
+        <item>정각</item>
+        <item>5분전</item>
+        <item>10분전</item>
+        <item>15분전</item>
+        <item>30분전</item>
+        <item>1시간전</item>
+    </string-array>
+</resources>
