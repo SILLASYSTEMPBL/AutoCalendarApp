@@ -20,7 +20,11 @@ public class SettingActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+<<<<<<< HEAD
                 //spinnerTxt.setText((CharSequence) parent.getItemAtPosition(position));
+=======
+                    //spinnerTxt.setText((CharSequence) parent.getItemAtPosition(position));
+>>>>>>> 429e366d7b6f056534862963f90acfd0e528c02a
             }
 
             @Override
