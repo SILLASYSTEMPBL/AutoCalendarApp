@@ -29,6 +29,9 @@ public class EventDecorator implements DayViewDecorator {
     public void decorate(DayViewFacade view){
         //view.addSpan(AddTextToDates("ABC"));
         //view.addSpan(new AddTextToDates("안녕하세요감사해요잘있어요"));
+        view.addSpan(new AddTextToDates(0xFFFF0000,0));
+        view.addSpan(new AddTextToDates(0xff00ff00,1));
+        view.addSpan(new AddTextToDates(0xff0000ff,2));
     }
 
     public void setDate(Date date){
