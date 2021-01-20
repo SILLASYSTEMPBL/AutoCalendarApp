@@ -33,6 +33,8 @@ import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
 import java.io.File;
+import java.time.DayOfWeek;
+import java.util.Calendar;
 import java.util.Objects;
 import java.io.InputStream;
 
@@ -82,7 +84,8 @@ public class MainActivity extends AppCompatActivity implements  OnDateSelectedLi
         });
 
         materialCalendarView.state().edit()
-                .setCalendarDisplayMode(CalendarMode.MONTHS);
+                .setCalendarDisplayMode(CalendarMode.MONTHS)
+                .setFirstDayOfWeek(2).commit();
 
         materialCalendarView.setPadding(0,0,0,0);
 
