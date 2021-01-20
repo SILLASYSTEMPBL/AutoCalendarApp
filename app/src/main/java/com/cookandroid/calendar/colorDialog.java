@@ -3,11 +3,17 @@ package com.cookandroid.calendar;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class colorDialog {
+public class colorDialog extends AppCompatActivity {
+
+    SharedPreferences setColor = getSharedPreferences("settingColor",MODE_PRIVATE);
+    SharedPreferences.Editor editor = setColor.edit();
     private Context context;
 
     public colorDialog(Context context) {
@@ -15,9 +21,12 @@ public class colorDialog {
     }
 
     public void callFunction() {
+
         final Dialog dlg = new Dialog(context);
         dlg.setContentView(R.layout.schedule_color);
         dlg.show();
+
+
 
         final Button cancel = (Button) dlg.findViewById(R.id.cancel);
         final Button black = (Button) dlg.findViewById(R.id.button_black);
@@ -39,7 +48,9 @@ public class colorDialog {
         black.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"BLACK",Toast.LENGTH_SHORT).show();
+
+//                editor.putInt("scheduleColor", Color.parseColor("#000000"));
+//                editor.apply();
                 dlg.dismiss();
             }
         });
@@ -47,7 +58,8 @@ public class colorDialog {
         red.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"RED",Toast.LENGTH_SHORT).show();
+//                editor.putInt("scheduleColor", Color.parseColor("#ff0000"));
+//                editor.apply();
                 dlg.dismiss();
             }
         });
@@ -55,7 +67,8 @@ public class colorDialog {
         blue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"BLUE",Toast.LENGTH_SHORT).show();
+//                editor.putInt("scheduleColor", Color.parseColor("#0000ff"));
+//                editor.apply();
                 dlg.dismiss();
             }
         });
@@ -63,7 +76,8 @@ public class colorDialog {
         yellow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"YELLOW",Toast.LENGTH_SHORT).show();
+//                editor.putInt("scheduleColor", Color.parseColor("#ffff00"));
+//                editor.apply();
                 dlg.dismiss();
             }
         });
@@ -71,7 +85,8 @@ public class colorDialog {
         pupple.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"PUPPLE",Toast.LENGTH_SHORT).show();
+//                editor.putInt("scheduleColor", Color.parseColor("#ff00ff"));
+//                editor.apply();
                 dlg.dismiss();
             }
         });
@@ -79,7 +94,8 @@ public class colorDialog {
         cyan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"CYAN",Toast.LENGTH_SHORT).show();
+//                editor.putInt("scheduleColor", Color.parseColor("#8078ff"));
+//                editor.apply();
                 dlg.dismiss();
             }
         });
@@ -87,7 +103,8 @@ public class colorDialog {
         orange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"ORANGE",Toast.LENGTH_SHORT).show();
+//                editor.putInt("scheduleColor", Color.parseColor("#ff8800" ));
+//                editor.apply();
                 dlg.dismiss();
             }
         });
@@ -95,7 +112,8 @@ public class colorDialog {
         green.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"GREEN",Toast.LENGTH_SHORT).show();
+//                editor.putInt("scheduleColor", Color.parseColor("#00ff00"));
+//                editor.apply();
                 dlg.dismiss();
             }
         });
