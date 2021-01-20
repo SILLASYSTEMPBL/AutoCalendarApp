@@ -3,26 +3,48 @@ package com.cookandroid.calendar;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class colorDialog extends AppCompatActivity {
+import static android.content.Context.MODE_PRIVATE;
 
-    SharedPreferences setColor = getSharedPreferences("settingColor",MODE_PRIVATE);
-    SharedPreferences.Editor editor = setColor.edit();
+public class colorDialog extends AppCompatActivity{
+
     private Context context;
+    SharedPreferences setColor;
+    SharedPreferences.Editor editor;
+
+    private int data;
+
+    private CustomDialogListener CDListener;
 
     public colorDialog(Context context) {
         this.context = context;
+
+        SharedPreferences setColor = context.getSharedPreferences("settingColor",MODE_PRIVATE);
+        SharedPreferences.Editor editor = setColor.edit();
     }
 
-    public void callFunction() {
+    public int ColorClickListener(View view) {
+        return data;
+    }
 
+    interface CustomDialogListener {
+        void onClicked(int Colorindex);
+    }
+
+
+    protected void callFunction(final Button button) {
         final Dialog dlg = new Dialog(context);
+        setColor = context.getSharedPreferences("settingColor",MODE_PRIVATE);
+        editor = setColor.edit();
         dlg.setContentView(R.layout.schedule_color);
         dlg.show();
 
@@ -41,7 +63,7 @@ public class colorDialog extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dlg.dismiss();
+                dlg.cancel();
             }
         });
 
@@ -49,8 +71,9 @@ public class colorDialog extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-//                editor.putInt("scheduleColor", Color.parseColor("#000000"));
-//                editor.apply();
+                editor.putInt("scheduleColor", Color.parseColor("#000000"));
+                editor.apply();
+                button.setBackgroundColor(setColor.getInt("scheduleColor",0));
                 dlg.dismiss();
             }
         });
@@ -58,8 +81,9 @@ public class colorDialog extends AppCompatActivity {
         red.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                editor.putInt("scheduleColor", Color.parseColor("#ff0000"));
-//                editor.apply();
+                editor.putInt("scheduleColor", Color.parseColor("#ff0000"));
+                editor.apply();
+                button.setBackgroundColor(setColor.getInt("scheduleColor",0));
                 dlg.dismiss();
             }
         });
@@ -67,8 +91,9 @@ public class colorDialog extends AppCompatActivity {
         blue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                editor.putInt("scheduleColor", Color.parseColor("#0000ff"));
-//                editor.apply();
+                editor.putInt("scheduleColor", Color.parseColor("#0000ff"));
+                editor.apply();
+                button.setBackgroundColor(setColor.getInt("scheduleColor",0));
                 dlg.dismiss();
             }
         });
@@ -76,8 +101,9 @@ public class colorDialog extends AppCompatActivity {
         yellow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                editor.putInt("scheduleColor", Color.parseColor("#ffff00"));
-//                editor.apply();
+                editor.putInt("scheduleColor", Color.parseColor("#ffff00"));
+                editor.apply();
+                button.setBackgroundColor(setColor.getInt("scheduleColor",0));
                 dlg.dismiss();
             }
         });
@@ -85,8 +111,9 @@ public class colorDialog extends AppCompatActivity {
         pupple.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                editor.putInt("scheduleColor", Color.parseColor("#ff00ff"));
-//                editor.apply();
+                editor.putInt("scheduleColor", Color.parseColor("#ff00ff"));
+                editor.apply();
+                button.setBackgroundColor(setColor.getInt("scheduleColor",0));
                 dlg.dismiss();
             }
         });
@@ -94,8 +121,9 @@ public class colorDialog extends AppCompatActivity {
         cyan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                editor.putInt("scheduleColor", Color.parseColor("#8078ff"));
-//                editor.apply();
+                editor.putInt("scheduleColor", Color.parseColor("#8078ff"));
+                editor.apply();
+                button.setBackgroundColor(setColor.getInt("scheduleColor",0));
                 dlg.dismiss();
             }
         });
@@ -103,8 +131,9 @@ public class colorDialog extends AppCompatActivity {
         orange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                editor.putInt("scheduleColor", Color.parseColor("#ff8800" ));
-//                editor.apply();
+                editor.putInt("scheduleColor", Color.parseColor("#ff8800" ));
+                editor.apply();
+                button.setBackgroundColor(setColor.getInt("scheduleColor",0));
                 dlg.dismiss();
             }
         });
@@ -112,8 +141,9 @@ public class colorDialog extends AppCompatActivity {
         green.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                editor.putInt("scheduleColor", Color.parseColor("#00ff00"));
-//                editor.apply();
+                editor.putInt("scheduleColor", Color.parseColor("#00ff00"));
+                editor.apply();
+                button.setBackgroundColor(setColor.getInt("scheduleColor",0));
                 dlg.dismiss();
             }
         });
