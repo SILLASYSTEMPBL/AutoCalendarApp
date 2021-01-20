@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements  OnDateSelectedLi
         setContentView(R.layout.activity_main);
         materialCalendarView = (MaterialCalendarView)findViewById(R.id.calendarView);
         final Button button = (Button) findViewById(R.id.button);
-
+        final Button setting = (Button) findViewById(R.id.SettingButton);
 
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +71,13 @@ public class MainActivity extends AppCompatActivity implements  OnDateSelectedLi
                     }
                 });
                 popupMenu.show();
+            }
+        });
+        findViewById(R.id.SettingButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent setIntent = new Intent(getApplicationContext(),SettingActivity.class);
+                startActivity(setIntent);
             }
         });
 
@@ -138,11 +145,15 @@ public class MainActivity extends AppCompatActivity implements  OnDateSelectedLi
             {
                 mImageCaptureUri = data.getData();
 
-                Log.d("CheckImage",mImageCaptureUri.getPath().toString());
+                //Log.d("CheckImage",mImageCaptureUri.getPath().toString());
+
+                Toast.makeText(MainActivity.this,data.getDataString(),Toast.LENGTH_SHORT).show();
+                break;
             }
 
             case 2:
             {
+                Toast.makeText(MainActivity.this,"TEXT!",Toast.LENGTH_SHORT).show();
                 break;
             }
         }
