@@ -38,7 +38,7 @@ public class SettingActivity extends AppCompatActivity {
                 else if(startDay.equals("월요일")) {
                     editor.putInt("startday", 2);
                 }
-                editor.commit();
+                editor.apply();
 
             }
      ;

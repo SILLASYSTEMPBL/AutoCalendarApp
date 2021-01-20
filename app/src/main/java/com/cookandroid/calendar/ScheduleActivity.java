@@ -12,10 +12,10 @@ import android.widget.Switch;
 
 public class ScheduleActivity extends AppCompatActivity {
 
-    SharedPreferences setColor;
+//    SharedPreferences setColor;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        setColor = getSharedPreferences("settingColor",MODE_PRIVATE);
+  //      setColor = getSharedPreferences("settingColor",MODE_PRIVATE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.schedulemain);
 
