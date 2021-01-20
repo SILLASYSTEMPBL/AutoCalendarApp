@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteAbortException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -40,15 +41,22 @@ import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity implements  OnDateSelectedListener{
 
+
+
+
     private MaterialCalendarView materialCalendarView;
     TextView textView ;
     OneDayDecorator oneDayDecorator;
     String url = "tmp_"+String.valueOf(System.currentTimeMillis())+".jpg";
     Uri mImageCaptureUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(), url));
 
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences setting1 = getSharedPreferences("setting",MODE_PRIVATE);
+        int dayofweek ;
+        dayofweek = setting1.getInt("startday",1);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         materialCalendarView = (MaterialCalendarView)findViewById(R.id.calendarView);
@@ -83,9 +91,10 @@ public class MainActivity extends AppCompatActivity implements  OnDateSelectedLi
             }
         });
 
+
         materialCalendarView.state().edit()
                 .setCalendarDisplayMode(CalendarMode.MONTHS)
-                .setFirstDayOfWeek(2).commit();
+                .setFirstDayOfWeek(dayofweek).commit();
 
         materialCalendarView.setPadding(0,0,0,0);
 
