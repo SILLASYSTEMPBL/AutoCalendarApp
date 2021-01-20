@@ -76,6 +76,8 @@ public class MainActivity extends AppCompatActivity implements  OnDateSelectedLi
                             TakeFromAlbum();
                         } else if (item.getItemId() == R.id.action_menu2){
                             Toast.makeText(MainActivity.this,"텍스트 확인",Toast.LENGTH_SHORT).show();
+                            Intent schedule_Intent = new Intent(getApplicationContext(),ScheduleActivity.class);
+                            startActivity(schedule_Intent);
                         }
                         return false;
                     }

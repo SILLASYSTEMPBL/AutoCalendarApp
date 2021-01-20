@@ -81,6 +81,7 @@
                 android:text="하루종일" />
 
             <Switch
+                android:id="@+id/allDaySwitch"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
@@ -89,6 +90,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/start_Date_Layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -111,6 +113,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/end_Date_Layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
