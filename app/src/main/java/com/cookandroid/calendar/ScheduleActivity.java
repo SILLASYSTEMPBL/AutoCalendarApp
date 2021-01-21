@@ -2,6 +2,7 @@ package com.cookandroid.calendar;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,6 +20,8 @@ import java.util.Date;
 
 public class ScheduleActivity extends AppCompatActivity {
     String Year,Month,Day,Hour,Min;
+    myDBHelper database;
+    SQLiteDatabase sqlDB ;
 //    SharedPreferences setColor;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,7 +73,7 @@ public class ScheduleActivity extends AppCompatActivity {
 
         editor1.apply();
         editor2.apply();
-
+        final Button setButton = (Button)findViewById(R.id.setButton);
         final Button colorButton = (Button) findViewById(R.id.color);
         final Button startDButton = (Button) findViewById(R.id.startDateButton);
         final Button endDButton = (Button) findViewById(R.id.endDateButton);
@@ -122,6 +125,14 @@ public class ScheduleActivity extends AppCompatActivity {
                     startDayLayout.setVisibility(View.VISIBLE);
                     endDayLayout.setVisibility(View.VISIBLE);
                 }
+            }
+        });
+
+        setButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sqlDB = database.getWritableDatabase();
+//                sqlDB.execSQL("INSERT INTO scheduleTable VALUES() ");
             }
         });
     }
