@@ -12,7 +12,9 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.Switch;
 
 import java.text.SimpleDateFormat;
@@ -131,8 +133,22 @@ public class ScheduleActivity extends AppCompatActivity {
         setButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                EditText setTitle = (EditText)findViewById(R.id.setTitle);
+                Spinner setAlarm = (Spinner)findViewById(R.id.setAlarm);
+                Spinner setAlarmTime = (Spinner)findViewById(R.id.setAlarmTime);
+                EditText Memo = (EditText)findViewById(R.id.Memo);
+                int startdate = Integer.parseInt(setStartDate.getString("Year","")+setStartDate.getString("Month","")+setStartDate.getString("Day",""));
+                int enddate = Integer.parseInt(setEndDate.getString("Year","")+setEndDate.getString("Month","")+setEndDate.getString("Day",""));
+                String title = setTitle.getText().toString();
+                char alarm = Character.forDigit(setAlarm.getSelectedItemPosition(),10);
+                String memo  = Memo.getText().toString();
+                int starttime = Integer.parseInt(setStartDate.getString("Hour","")+setStartDate.getString("Min",""));;
+                int endtime = Integer.parseInt(setEndDate.getString("Hour","")+setEndDate.getString("Min",""));;
+                char color= 'a';
+                char settime=Character.forDigit(setAlarmTime.getSelectedItemPosition(),10);;
                 sqlDB = database.getWritableDatabase();
-//                sqlDB.execSQL("INSERT INTO scheduleTable VALUES() ");
+                sqlDB.execSQL("INSERT INTO scheduleTable VALUES('"+startdate+"','"+enddate+"','"+title+"','"+alarm+"','"+memo+"','"+starttime+"','"+endtime+"','"+color+"','"+settime+"') ");
+                sqlDB.close();
             }
         });
     }
