@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteAbortException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -41,6 +42,7 @@ import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity implements  OnDateSelectedListener{
 
+    SharedPreferences setColor;
 
 
 
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements  OnDateSelectedLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences setting1 = getSharedPreferences("setting",MODE_PRIVATE);
+        setColor = getSharedPreferences("backgroundColor",MODE_PRIVATE);
         int dayofweek ;
         dayofweek = setting1.getInt("startday",1);
         super.onCreate(savedInstanceState);
@@ -104,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements  OnDateSelectedLi
         materialCalendarView.setOnDateChangedListener(this);
         materialCalendarView.setTopbarVisible(true);
         materialCalendarView.setDynamicHeightEnabled(false);
+        materialCalendarView.setBackgroundColor(setColor.getInt("backgroundColor", Color.parseColor("#ffffff")));
         oneDayDecorator = new OneDayDecorator();
 
         materialCalendarView.addDecorators(

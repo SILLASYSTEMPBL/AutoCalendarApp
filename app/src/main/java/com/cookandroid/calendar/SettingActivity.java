@@ -2,6 +2,7 @@ package com.cookandroid.calendar;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 
 public class SettingActivity extends AppCompatActivity {
 
+    SharedPreferences setColor;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
@@ -20,7 +23,10 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setting);
         Spinner spinner = findViewById(R.id.spinner);
+        final Button button3 = (Button)findViewById(R.id.button3);
         //final TextView spinnerTxt = findViewById(R.id.textView4);
+        setColor = getSharedPreferences("backgroundColor",MODE_PRIVATE);
+        button3.setBackgroundColor(setColor.getInt("backgroundColor",Color.LTGRAY));
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             SharedPreferences setting = getSharedPreferences("setting",MODE_PRIVATE);
@@ -49,7 +55,24 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
+
+        findViewById(R.id.button3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                colorDialog colorDlg = new colorDialog(SettingActivity.this);
+                colorDlg.callFunction_2(button3);
+            }
+        });
+
         findViewById(R.id.button4).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent setIntent = new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(setIntent);
+            }
+        });
+
+        findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent setIntent = new Intent(getApplicationContext(),MainActivity.class);

@@ -9,8 +9,7 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/title"
@@ -40,28 +39,30 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#000000">
 
         <Button
-            android:id="@+id/button_black"
+            android:id="@+id/button_white"
             android:layout_width="100px"
             android:layout_height="100px"
             android:layout_margin="20px"
-            android:background="#000000" />
+            android:background="#ffffff" />
 
         <Button
-            android:id="@+id/button_red"
+            android:id="@+id/button_gray"
             android:layout_width="100px"
             android:layout_height="100px"
             android:layout_margin="20px"
-            android:background="#ff0000" />
+            android:background="#adadad" />
 
         <Button
-            android:id="@+id/button_blue"
+            android:id="@+id/button_sky"
             android:layout_width="100px"
             android:layout_height="100px"
             android:layout_margin="20px"
-            android:background="#0000ff" />
+            android:background="#03fcfc" />
 
         <Button
             android:id="@+id/button_yellow"
@@ -72,7 +73,9 @@
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#000000">
 
         <Button
             android:id="@+id/button_green"

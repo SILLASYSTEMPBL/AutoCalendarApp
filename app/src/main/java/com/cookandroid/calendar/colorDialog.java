@@ -51,9 +51,9 @@ public class colorDialog extends AppCompatActivity{
 
 
         final Button cancel = (Button) dlg.findViewById(R.id.cancel);
-        final Button black = (Button) dlg.findViewById(R.id.button_black);
-        final Button red = (Button) dlg.findViewById(R.id.button_red);
-        final Button blue = (Button) dlg.findViewById(R.id.button_blue);
+        final Button white = (Button) dlg.findViewById(R.id.button_white);
+        final Button gray= (Button) dlg.findViewById(R.id.button_gray);
+        final Button sky = (Button) dlg.findViewById(R.id.button_sky);
         final Button yellow = (Button) dlg.findViewById(R.id.button_yellow);
         final Button pupple = (Button) dlg.findViewById(R.id.button_pupple);
         final Button cyan = (Button) dlg.findViewById(R.id.button_cyan);
@@ -67,7 +67,7 @@ public class colorDialog extends AppCompatActivity{
             }
         });
 
-        black.setOnClickListener(new View.OnClickListener() {
+        white.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -78,7 +78,7 @@ public class colorDialog extends AppCompatActivity{
             }
         });
 
-        red.setOnClickListener(new View.OnClickListener() {
+        gray.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 editor.putInt("scheduleColor", Color.parseColor("#ff0000"));
@@ -88,7 +88,7 @@ public class colorDialog extends AppCompatActivity{
             }
         });
 
-        blue.setOnClickListener(new View.OnClickListener() {
+        sky.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 editor.putInt("scheduleColor", Color.parseColor("#0000ff"));
@@ -144,6 +144,113 @@ public class colorDialog extends AppCompatActivity{
                 editor.putInt("scheduleColor", Color.parseColor("#00ff00"));
                 editor.apply();
                 button.setBackgroundColor(setColor.getInt("scheduleColor",0));
+                dlg.dismiss();
+            }
+        });
+    }
+
+    protected void callFunction_2(final Button button) {
+        final Dialog dlg = new Dialog(context);
+        setColor = context.getSharedPreferences("backgroundColor", MODE_PRIVATE);
+        editor = setColor.edit();
+        dlg.setContentView(R.layout.schedule_color);
+        dlg.show();
+
+
+        final Button cancel = (Button) dlg.findViewById(R.id.cancel);
+        final Button white = (Button) dlg.findViewById(R.id.button_white);
+        final Button gray = (Button) dlg.findViewById(R.id.button_gray);
+        final Button sky = (Button) dlg.findViewById(R.id.button_sky);
+        final Button yellow = (Button) dlg.findViewById(R.id.button_yellow);
+        final Button pupple = (Button) dlg.findViewById(R.id.button_pupple);
+        final Button cyan = (Button) dlg.findViewById(R.id.button_cyan);
+        final Button orange = (Button) dlg.findViewById(R.id.button_orange);
+        final Button green = (Button) dlg.findViewById(R.id.button_green);
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dlg.cancel();
+            }
+        });
+
+        white.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                editor.putInt("backgroundColor", Color.parseColor("#ffffff"));
+                editor.apply();
+                button.setBackgroundColor(setColor.getInt("backgroundColor", 0));
+                dlg.dismiss();
+            }
+        });
+
+        gray.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.putInt("backgroundColor", Color.parseColor("#adadad"));
+                editor.apply();
+                button.setBackgroundColor(setColor.getInt("backgroundColor", 0));
+                dlg.dismiss();
+            }
+        });
+
+        sky.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.putInt("backgroundColor", Color.parseColor("#03fcfc"));
+                editor.apply();
+                button.setBackgroundColor(setColor.getInt("backgroundColor", 0));
+                dlg.dismiss();
+            }
+        });
+
+        yellow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.putInt("backgroundColor", Color.parseColor("#ffff00"));
+                editor.apply();
+                button.setBackgroundColor(setColor.getInt("backgroundColor", 0));
+                dlg.dismiss();
+            }
+        });
+
+        pupple.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.putInt("backgroundColor", Color.parseColor("#ff00ff"));
+                editor.apply();
+                button.setBackgroundColor(setColor.getInt("backgroundColor", 0));
+                dlg.dismiss();
+            }
+        });
+
+        cyan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.putInt("backgroundColor", Color.parseColor("#8078ff"));
+                editor.apply();
+                button.setBackgroundColor(setColor.getInt("backgroundColor", 0));
+                dlg.dismiss();
+            }
+        });
+
+        orange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.putInt("backgroundColor", Color.parseColor("#ff8800"));
+                editor.apply();
+                button.setBackgroundColor(setColor.getInt("backgroundColor", 0));
+                dlg.dismiss();
+            }
+        });
+
+        green.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.putInt("backgroundColor", Color.parseColor("#00ff00"));
+                editor.apply();
+                button.setBackgroundColor(setColor.getInt("backgroundColor", 0));
                 dlg.dismiss();
             }
         });
