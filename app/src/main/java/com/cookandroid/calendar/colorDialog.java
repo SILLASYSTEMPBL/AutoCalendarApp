@@ -58,7 +58,7 @@ public class colorDialog extends AppCompatActivity{
             @Override
             public void onClick(View v) {
 
-                editor.putInt("scheduleColor", Color.parseColor("#000000"));
+                editor.putInt("scheduleColor", Color.parseColor("#ffffff"));
                 editor.apply();
                 button.setBackgroundColor(setColor.getInt("scheduleColor",0));
                 dlg.dismiss();
@@ -68,7 +68,7 @@ public class colorDialog extends AppCompatActivity{
         gray.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editor.putInt("scheduleColor", Color.parseColor("#ff0000"));
+                editor.putInt("scheduleColor", Color.parseColor("#adadad"));
                 editor.apply();
                 button.setBackgroundColor(setColor.getInt("scheduleColor",0));
                 dlg.dismiss();
@@ -78,7 +78,7 @@ public class colorDialog extends AppCompatActivity{
         sky.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editor.putInt("scheduleColor", Color.parseColor("#0000ff"));
+                editor.putInt("scheduleColor", Color.parseColor("#03fcfc"));
                 editor.apply();
                 button.setBackgroundColor(setColor.getInt("scheduleColor",0));
                 dlg.dismiss();
