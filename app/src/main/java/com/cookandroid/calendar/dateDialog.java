@@ -18,12 +18,12 @@ public class dateDialog extends AppCompatActivity {
     SharedPreferences s_timer;
     SharedPreferences.Editor editor;
 
-    ArrayList<String> arrayList;
-    ArrayAdapter<String> arrayAdapter;
+    //ArrayList<String> arrayList;
+    //ArrayAdapter<String> arrayAdapter;
 
-    Spinner yearSpinner;
-    Spinner monthSpinner;
-    Spinner daySpinner;
+   // Spinner yearSpinner;
+    //Spinner monthSpinner;
+    //Spinner daySpinner;
 
     public dateDialog(Context context) {
         this.context = context;
@@ -49,11 +49,11 @@ public class dateDialog extends AppCompatActivity {
         final Button cancel = (Button) dlg.findViewById(R.id.dateCancel);
         final Button accept = (Button) dlg.findViewById(R.id.dateAccept);
 
-        yearSpinner = (Spinner) dlg.findViewById(R.id.YearSpinner);
-        monthSpinner = (Spinner) dlg.findViewById(R.id.MonthSpinner);
-        monthSpinner.setSelection(Integer.parseInt(Month));
+      //  yearSpinner = (Spinner) dlg.findViewById(R.id.YearSpinner);
+      //  monthSpinner = (Spinner) dlg.findViewById(R.id.MonthSpinner);
+      //  monthSpinner.setSelection(Integer.parseInt(Month));
 
-        setDaySpinnerValue(Integer.parseInt(Year));
+      //  setDaySpinnerValue(Integer.parseInt(Year));
         //yearSpinner.setPrompt();
 
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +70,7 @@ public class dateDialog extends AppCompatActivity {
         });
     }
 
-    public void setDaySpinnerValue(int Year) {
+    /*public void setDaySpinnerValue(int Year) {
         int Position = monthSpinner.getSelectedItemPosition();
         boolean leap = false;
         if (Year%4==0&&(Year%100!=0||Year%400==0)) leap = true;
@@ -102,5 +102,5 @@ public class dateDialog extends AppCompatActivity {
         arrayAdapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,arrayList);
         daySpinner.setAdapter(arrayAdapter);
         daySpinner.setSelection(0);
-    }
+    }*/
 }

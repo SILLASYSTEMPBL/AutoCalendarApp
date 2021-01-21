@@ -79,11 +79,11 @@ public class ScheduleActivity extends AppCompatActivity {
         final LinearLayout endDayLayout = (LinearLayout) findViewById(R.id.end_Date_Layout);
         colorButton.setBackgroundColor(Color.BLACK);
 
-//        startDButton.setText(setStartDate.getString("Year","")+"/"+setStartDate.getString("Month",""+"")+"/"
-//                +setStartDate.getString("Day","")+" "+setStartDate.getString("Hour","")+":"+setStartDate.getString("Min",""));
+        startDButton.setText(setStartDate.getString("Year","")+"/"+setStartDate.getString("Month",""+"")+"/"
+                +setStartDate.getString("Day","")+" "+setStartDate.getString("Hour","")+":"+setStartDate.getString("Min",""));
 
-//        endDButton.setText(setEndDate.getString("Year","")+"/"+setEndDate.getString("Month",""+"")+"/"
-//                +setEndDate.getString("Day","")+" "+setEndDate.getString("Hour","")+":"+setEndDate.getString("Min",""));
+        endDButton.setText(setEndDate.getString("Year","")+"/"+setEndDate.getString("Month",""+"")+"/"
+                +setEndDate.getString("Day","")+" "+setEndDate.getString("Hour","")+":"+setEndDate.getString("Min",""));
 
         colorButton.setOnClickListener(new View.OnClickListener() {
             @Override
