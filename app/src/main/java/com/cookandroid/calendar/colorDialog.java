@@ -23,21 +23,10 @@ public class colorDialog extends AppCompatActivity{
 
     private int data;
 
-    private CustomDialogListener CDListener;
-
     public colorDialog(Context context) {
         this.context = context;
 
     }
-
-    public int ColorClickListener(View view) {
-        return data;
-    }
-
-    interface CustomDialogListener {
-        void onClicked(int Colorindex);
-    }
-
 
     protected void callFunction(final Button button) {
         final Dialog dlg = new Dialog(context);

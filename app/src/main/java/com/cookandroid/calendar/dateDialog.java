@@ -3,7 +3,9 @@ package com.cookandroid.calendar;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.constraint.motion.Debug;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -12,27 +14,28 @@ import android.widget.Spinner;
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 public class dateDialog extends AppCompatActivity {
     private Context context;
     SharedPreferences s_timer;
     SharedPreferences.Editor editor;
 
-    //ArrayList<String> arrayList;
-    //ArrayAdapter<String> arrayAdapter;
+    ArrayList<String> arrayList;
+    ArrayAdapter<String> arrayAdapter;
 
-   // Spinner yearSpinner;
-    //Spinner monthSpinner;
-    //Spinner daySpinner;
+    Spinner yearSpinner;
+    Spinner monthSpinner;
+    Spinner daySpinner;
 
     public dateDialog(Context context) {
         this.context = context;
-/*
+
         s_timer = context.getSharedPreferences("startTimer",MODE_PRIVATE);
-        editor = s_timer.edit();*/
+        editor = s_timer.edit();
     }
 
-    public void callFunction(final Button button,String Y,String M,String D,String H,String Minute,int Type) {
+    protected void callFunction(final Button button,String Y,String M,String D,String H,String Minute,int Type) {
         final Dialog dlg = new Dialog(context);
         String Year = Y;
         String Month = M;
@@ -43,35 +46,35 @@ public class dateDialog extends AppCompatActivity {
         if(Type==0) s_timer = context.getSharedPreferences("startTimer",MODE_PRIVATE);
         else s_timer = context.getSharedPreferences("endTimer",MODE_PRIVATE);
         editor = s_timer.edit();
-        dlg.setContentView(R.layout.schedule_color);
+        dlg.setContentView(R.layout.schedule_date);
         dlg.show();
 
         final Button cancel = (Button) dlg.findViewById(R.id.dateCancel);
         final Button accept = (Button) dlg.findViewById(R.id.dateAccept);
 
-      //  yearSpinner = (Spinner) dlg.findViewById(R.id.YearSpinner);
-      //  monthSpinner = (Spinner) dlg.findViewById(R.id.MonthSpinner);
-      //  monthSpinner.setSelection(Integer.parseInt(Month));
-
-      //  setDaySpinnerValue(Integer.parseInt(Year));
-        //yearSpinner.setPrompt();
+        yearSpinner = (Spinner) dlg.findViewById(R.id.YearSpinner);
+        monthSpinner = (Spinner) dlg.findViewById(R.id.MonthSpinner);
+        //Log.i("WTF", "data : "+Integer.parseInt(Month));
+        monthSpinner.setSelection(Integer.parseInt(Month)-1);
+        //monthSpinner.setSelection(0);
+        setDaySpinnerValue(dlg, Integer.parseInt(Year),Integer.parseInt(Day));
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dlg.cancel();
+                dlg.dismiss();
             }
         });
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dlg.cancel();
+                dlg.dismiss();
             }
         });
     }
 
-    /*public void setDaySpinnerValue(int Year) {
-        int Position = monthSpinner.getSelectedItemPosition();
+    public void setDaySpinnerValue(Dialog dlg, int Year,int Day) {
+        int Position = monthSpinner.getSelectedItemPosition()+1;
         boolean leap = false;
         if (Year%4==0&&(Year%100!=0||Year%400==0)) leap = true;
         int dayNum=0;
@@ -99,8 +102,10 @@ public class dateDialog extends AppCompatActivity {
         for (int i=1;i<=dayNum;i++) {
             arrayList.add(String.valueOf(i));
         }
-        arrayAdapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,arrayList);
+        arrayAdapter = new ArrayAdapter<String>(context,android.R.layout.simple_spinner_item,arrayList);
+        daySpinner = (Spinner)dlg.findViewById(R.id.DaySpinner);
         daySpinner.setAdapter(arrayAdapter);
-        daySpinner.setSelection(0);
-    }*/
+        if(Day>dayNum) daySpinner.setSelection(0);
+        else daySpinner.setSelection(Day-1);
+    }
 }
