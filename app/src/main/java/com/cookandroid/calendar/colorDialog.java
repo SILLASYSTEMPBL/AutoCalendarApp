@@ -28,8 +28,6 @@ public class colorDialog extends AppCompatActivity{
     public colorDialog(Context context) {
         this.context = context;
 
-        SharedPreferences setColor = context.getSharedPreferences("settingColor",MODE_PRIVATE);
-        SharedPreferences.Editor editor = setColor.edit();
     }
 
     public int ColorClickListener(View view) {
@@ -151,8 +149,6 @@ public class colorDialog extends AppCompatActivity{
 
     protected void callFunction_2(final Button button) {
         final Dialog dlg = new Dialog(context);
-        setColor = context.getSharedPreferences("backgroundColor", MODE_PRIVATE);
-        editor = setColor.edit();
         dlg.setContentView(R.layout.schedule_color);
         dlg.show();
 
@@ -177,10 +173,7 @@ public class colorDialog extends AppCompatActivity{
         white.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                editor.putInt("backgroundColor", Color.parseColor("#ffffff"));
-                editor.apply();
-                button.setBackgroundColor(setColor.getInt("backgroundColor", 0));
+                button.setBackgroundColor(Color.parseColor("#ffffff"));
                 dlg.dismiss();
             }
         });
@@ -188,9 +181,7 @@ public class colorDialog extends AppCompatActivity{
         gray.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editor.putInt("backgroundColor", Color.parseColor("#adadad"));
-                editor.apply();
-                button.setBackgroundColor(setColor.getInt("backgroundColor", 0));
+                button.setBackgroundColor( Color.parseColor("#adadad"));
                 dlg.dismiss();
             }
         });
@@ -198,9 +189,7 @@ public class colorDialog extends AppCompatActivity{
         sky.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editor.putInt("backgroundColor", Color.parseColor("#03fcfc"));
-                editor.apply();
-                button.setBackgroundColor(setColor.getInt("backgroundColor", 0));
+                button.setBackgroundColor( Color.parseColor("#03fcfc"));
                 dlg.dismiss();
             }
         });
@@ -208,9 +197,7 @@ public class colorDialog extends AppCompatActivity{
         yellow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editor.putInt("backgroundColor", Color.parseColor("#ffff00"));
-                editor.apply();
-                button.setBackgroundColor(setColor.getInt("backgroundColor", 0));
+                button.setBackgroundColor(Color.parseColor("#ffff00"));
                 dlg.dismiss();
             }
         });
@@ -218,9 +205,7 @@ public class colorDialog extends AppCompatActivity{
         pupple.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editor.putInt("backgroundColor", Color.parseColor("#ff00ff"));
-                editor.apply();
-                button.setBackgroundColor(setColor.getInt("backgroundColor", 0));
+                button.setBackgroundColor(Color.parseColor("#ff00ff"));
                 dlg.dismiss();
             }
         });
@@ -228,9 +213,7 @@ public class colorDialog extends AppCompatActivity{
         cyan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editor.putInt("backgroundColor", Color.parseColor("#8078ff"));
-                editor.apply();
-                button.setBackgroundColor(setColor.getInt("backgroundColor", 0));
+                button.setBackgroundColor(Color.parseColor("#8078ff"));
                 dlg.dismiss();
             }
         });
@@ -238,9 +221,7 @@ public class colorDialog extends AppCompatActivity{
         orange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editor.putInt("backgroundColor", Color.parseColor("#ff8800"));
-                editor.apply();
-                button.setBackgroundColor(setColor.getInt("backgroundColor", 0));
+                button.setBackgroundColor(Color.parseColor("#ff8800"));
                 dlg.dismiss();
             }
         });
@@ -248,9 +229,7 @@ public class colorDialog extends AppCompatActivity{
         green.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editor.putInt("backgroundColor", Color.parseColor("#00ff00"));
-                editor.apply();
-                button.setBackgroundColor(setColor.getInt("backgroundColor", 0));
+                button.setBackgroundColor( Color.parseColor("#00ff00"));
                 dlg.dismiss();
             }
         });

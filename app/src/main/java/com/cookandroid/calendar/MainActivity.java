@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements  OnDateSelectedLi
 
 
 
+
+
     private MaterialCalendarView materialCalendarView;
     TextView textView ;
     OneDayDecorator oneDayDecorator;
@@ -107,7 +109,9 @@ public class MainActivity extends AppCompatActivity implements  OnDateSelectedLi
         materialCalendarView.setOnDateChangedListener(this);
         materialCalendarView.setTopbarVisible(true);
         materialCalendarView.setDynamicHeightEnabled(false);
-        materialCalendarView.setBackgroundColor(setColor.getInt("backgroundColor", Color.parseColor("#ffffff")));
+        Intent secondIntent = getIntent();
+
+        materialCalendarView.setBackgroundColor(setColor.getInt("backgroundColor",Color.parseColor("#ffffff")));
         oneDayDecorator = new OneDayDecorator();
 
         materialCalendarView.addDecorators(

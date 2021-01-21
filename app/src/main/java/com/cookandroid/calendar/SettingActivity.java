@@ -3,6 +3,7 @@ package com.cookandroid.calendar;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -20,43 +21,21 @@ public class SettingActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
 
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setting);
-        Spinner spinner = findViewById(R.id.spinner);
+        final Spinner spinner = (Spinner)findViewById(R.id.spinner);
         final Button button3 = (Button)findViewById(R.id.button3);
+
         //final TextView spinnerTxt = findViewById(R.id.textView4);
         setColor = getSharedPreferences("backgroundColor",MODE_PRIVATE);
         button3.setBackgroundColor(setColor.getInt("backgroundColor",Color.LTGRAY));
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            SharedPreferences setting = getSharedPreferences("setting",MODE_PRIVATE);
-            SharedPreferences.Editor editor = setting.edit();
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                String startDay;
-
-                startDay = parent.getItemAtPosition(position).toString();
-
-                if(startDay.equals("일요일")){
-                    editor.putInt("startday",1);
-                }
-                else if(startDay.equals("월요일")) {
-                    editor.putInt("startday", 2);
-                }
-                editor.apply();
-
-            }
-     ;
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
 
-        findViewById(R.id.button3).setOnClickListener(new View.OnClickListener() {
+
+
+        button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 colorDialog colorDlg = new colorDialog(SettingActivity.this);
@@ -67,7 +46,23 @@ public class SettingActivity extends AppCompatActivity {
         findViewById(R.id.button4).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ColorDrawable color = (ColorDrawable) button3.getBackground();
+                SharedPreferences setting = getSharedPreferences("setting",MODE_PRIVATE);
+                SharedPreferences.Editor editor = setting.edit();
+                SharedPreferences.Editor editor1 = setColor.edit();
+                String startDay = spinner.getSelectedItem().toString();
+                if(startDay.equals("일요일")){
+                    editor.putInt("startday",1);
+                }
+                else if(startDay.equals("월요일")) {
+                    editor.putInt("startday", 2);
+                }
+                editor.apply();
+
+                editor1.putInt("backgroundColor", color.getColor());
+                editor1.apply();
                 Intent setIntent = new Intent(getApplicationContext(),MainActivity.class);
+//                setIntent.putExtra("background",setColor.getInt("backgroundColor", Color.parseColor("#ffffff")));
                 startActivity(setIntent);
             }
         });
