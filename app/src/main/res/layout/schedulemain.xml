@@ -169,7 +169,8 @@
                 android:layout_marginEnd="10sp"
                 android:layout_marginRight="10sp"
                 android:layout_marginBottom="20sp"
-                android:layout_weight="1"></Spinner>
+                android:layout_weight="1"
+                android:entries="@array/alarmSetting"></Spinner>
 
             <Spinner
                 android:layout_width="match_parent"
@@ -180,7 +181,8 @@
                 android:layout_marginEnd="10sp"
                 android:layout_marginRight="10sp"
                 android:layout_marginBottom="20sp"
-                android:layout_weight="1"></Spinner>
+                android:layout_weight="1"
+                android:entries="@array/alarmTimer"></Spinner>
         </LinearLayout>
 
     </LinearLayout>
