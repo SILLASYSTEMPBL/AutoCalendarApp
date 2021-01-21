@@ -28,6 +28,7 @@ public class ScheduleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
   //      setColor = getSharedPreferences("settingColor",MODE_PRIVATE);
+        final myDBHelper database = new myDBHelper(this);
         SharedPreferences setColor = getSharedPreferences("settingColor",MODE_PRIVATE);
         SharedPreferences.Editor editor = setColor.edit();
         final SharedPreferences setStartDate = getSharedPreferences("startTimer",MODE_PRIVATE);
@@ -145,9 +146,11 @@ public class ScheduleActivity extends AppCompatActivity {
                 int starttime = Integer.parseInt(setStartDate.getString("Hour","")+setStartDate.getString("Min",""));;
                 int endtime = Integer.parseInt(setEndDate.getString("Hour","")+setEndDate.getString("Min",""));;
                 char color= 'a';
-                char settime=Character.forDigit(setAlarmTime.getSelectedItemPosition(),10);;
+                char settime=Character.forDigit(setAlarmTime.getSelectedItemPosition(),10);
+
                 sqlDB = database.getWritableDatabase();
-                sqlDB.execSQL("INSERT INTO scheduleTable VALUES('"+startdate+"','"+enddate+"','"+title+"','"+alarm+"','"+memo+"','"+starttime+"','"+endtime+"','"+color+"','"+settime+"') ");
+                database.onUpgrade(sqlDB,1,2);
+                sqlDB.execSQL("INSERT INTO scheduleTable VALUES('"+startdate+"','"+enddate+"','"+title+"','"+alarm+"','"+memo+"','"+starttime+"','"+endtime+"','"+color+"','"+settime+"'); ");
                 sqlDB.close();
             }
         });
