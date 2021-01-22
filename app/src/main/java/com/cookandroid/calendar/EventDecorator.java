@@ -21,19 +21,19 @@ public class EventDecorator implements DayViewDecorator {
     Context context;
     private CalendarDay date;
     myDBHelper database;
-    SQLiteDatabase sqlDB ;
+    SQLiteDatabase sqlDB = null ;
     boolean any = false;
     int schedule=1;
     ArrayList<Integer> Color = new ArrayList<Integer>();
 
     public EventDecorator(Context context){
-
-        }
+        this.context = context;
+    }
 
     @Override
     public boolean shouldDecorate(CalendarDay day){
-        this.context = context;
-        final myDBHelper database = new myDBHelper(context);
+        database = new myDBHelper(context);
+        sqlDB = database.getWritableDatabase();
         String sql = "select startDate,color from scheduleTable where startDate = "+day.getYear()*10000+day.getMonth()*100+day.getDay()+";";
         Cursor result = sqlDB.rawQuery(sql, null);
 
@@ -45,7 +45,7 @@ public class EventDecorator implements DayViewDecorator {
             any=true;
         }
         result.close();
-        return true;
+        return any;
     }
 
     @Override

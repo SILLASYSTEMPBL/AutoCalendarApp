@@ -3,6 +3,7 @@ package com.cookandroid.calendar;
 import android.app.Dialog;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -52,5 +53,11 @@ public class eventDialog extends AppCompatActivity {
 
         }
         dayView.setText(dow);
+
+        ScrollView scrollView = (ScrollView) dlg.findViewById(R.id.scroll);
+        /*
+        아무튼 DB 불러서 값 가져와서 비교하는 과정이 들어갈 곳
+        */
+
     }
 }
