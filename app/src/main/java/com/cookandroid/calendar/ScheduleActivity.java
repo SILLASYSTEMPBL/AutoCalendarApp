@@ -148,6 +148,7 @@ public class ScheduleActivity extends AppCompatActivity {
 
                 sqlDB = database.getWritableDatabase();
                 database.onUpgrade(sqlDB,1,2);
+                System.out.println(startdate);
                 sqlDB.execSQL("INSERT INTO scheduleTable VALUES('"+startdate+"','"+enddate+"','"+title+"','"+alarm+"','"+memo+"','"+starttime+"','"+endtime+"','"+color+"','"+settime+"'); ");
                 sqlDB.close();
                 Intent setIntent = new Intent(getApplicationContext(),MainActivity.class);

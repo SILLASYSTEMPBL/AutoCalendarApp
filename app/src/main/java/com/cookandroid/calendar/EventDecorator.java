@@ -8,6 +8,7 @@ import android.graphics.Typeface;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
+import android.widget.Toast;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
@@ -23,7 +24,7 @@ public class EventDecorator implements DayViewDecorator {
     myDBHelper database;
     SQLiteDatabase sqlDB = null ;
     boolean any = false;
-    int schedule=1;
+    int schedule=0;
     ArrayList<Integer> Color = new ArrayList<Integer>();
 
     public EventDecorator(Context context){
@@ -34,8 +35,19 @@ public class EventDecorator implements DayViewDecorator {
     public boolean shouldDecorate(CalendarDay day){
         database = new myDBHelper(context);
         sqlDB = database.getWritableDatabase();
-        String sql = "select startDate,color from scheduleTable where startDate = "+day.getYear()*10000+day.getMonth()*100+day.getDay()+";";
-        Cursor result = sqlDB.rawQuery(sql, null);
+        any = false;
+        schedule = 0;
+        String MonthStr;
+        if (day.getMonth()<9) MonthStr = '0'+String.valueOf(day.getMonth()+1);
+        else MonthStr = String.valueOf(day.getMonth()+1);
+
+        String DayStr = "";
+        if (day.getDay()<10) DayStr = '0'+String.valueOf(day.getDay());
+        else DayStr = String.valueOf(day.getDay());
+
+        String sql = "select startDate,color from scheduleTable where startDate = "+day.getYear()+MonthStr+DayStr+";";
+        System.out.println(sql);
+        Cursor result = sqlDB.rawQuery(sql,null);
 
         while(result.moveToNext()){
             int startdate = result.getInt(0);
@@ -57,10 +69,11 @@ public class EventDecorator implements DayViewDecorator {
 //        view.addSpan(new AddTextToDates(0xff00ff00,1));
 //        view.addSpan(new AddTextToDates(0xff0000ff,2));
         int colorData=0xFF000000;
-        for(int i=0;i<schedule;i++){
-         //   if(Color.get(schedule)==1)colorData=0xFFFF0000;
+        for(int i=0;i<=schedule;i++){
+            colorData=0xFF000000;
+//            if(Color.get(i)==1)colorData=0xFFFF0000;
 
-            view.addSpan(new AddTextToDates(colorData,schedule));
+            view.addSpan(new AddTextToDates(colorData,i));
         }
     }
 
