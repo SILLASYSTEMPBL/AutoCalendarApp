@@ -132,6 +132,8 @@ public class MainActivity extends AppCompatActivity implements  OnDateSelectedLi
     public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
         textView = (TextView)findViewById(R.id.yymmdd);
         textView.setText(date.getYear()+"년 "+(date.getMonth()+1)+"월 "+date.getDay()+"일");
+        eventDialog eventDlg = new eventDialog(MainActivity.this);
+        eventDlg.callFunction(date.getYear(),date.getMonth(),date.getDay(),date.getCalendar().get(Calendar.DAY_OF_WEEK));
     }
 
     public void TakeFromAlbum() {
