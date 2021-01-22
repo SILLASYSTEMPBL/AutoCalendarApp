@@ -1,5 +1,6 @@
 package com.cookandroid.calendar;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -138,17 +139,19 @@ public class ScheduleActivity extends AppCompatActivity {
                 int startdate = Integer.parseInt(setStartDate.getString("Year","")+setStartDate.getString("Month","")+setStartDate.getString("Day",""));
                 int enddate = Integer.parseInt(setEndDate.getString("Year","")+setEndDate.getString("Month","")+setEndDate.getString("Day",""));
                 String title = setTitle.getText().toString();
-                char alarm = Character.forDigit(setAlarm.getSelectedItemPosition(),10);
+                int alarm = setAlarm.getSelectedItemPosition();
                 String memo  = Memo.getText().toString();
                 int starttime = Integer.parseInt(setStartDate.getString("Hour","")+setStartDate.getString("Min",""));;
                 int endtime = Integer.parseInt(setEndDate.getString("Hour","")+setEndDate.getString("Min",""));;
-                char color= 'a';
-                char settime=Character.forDigit(setAlarmTime.getSelectedItemPosition(),10);
+                short color= 'a';
+                int settime=setAlarmTime.getSelectedItemPosition();
 
                 sqlDB = database.getWritableDatabase();
                 database.onUpgrade(sqlDB,1,2);
                 sqlDB.execSQL("INSERT INTO scheduleTable VALUES('"+startdate+"','"+enddate+"','"+title+"','"+alarm+"','"+memo+"','"+starttime+"','"+endtime+"','"+color+"','"+settime+"'); ");
                 sqlDB.close();
+                Intent setIntent = new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(setIntent);
             }
         });
     }

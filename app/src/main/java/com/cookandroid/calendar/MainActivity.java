@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements  OnDateSelectedLi
                 new SundayDecorator(),
                 new SaturdayDecorator(),
                 new WeekdayDecorator(),
-                new EventDecorator(),
+                new EventDecorator(MainActivity.this),
                 oneDayDecorator
         );
         materialCalendarView.setSelectedDate(CalendarDay.today());

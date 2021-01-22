@@ -11,7 +11,7 @@ public class myDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE scheduleTable (startdate int,enddate int,title char(30) PRIMARY KEY,alarm char(1),memo char(200),starttime int,endtime int,color char(1),settime char(1))");
+        db.execSQL("CREATE TABLE scheduleTable (startdate int,enddate int,title str PRIMARY KEY,alarm int,memo str,starttime int,endtime int,color int,settime int)");
     }
 
     @Override
