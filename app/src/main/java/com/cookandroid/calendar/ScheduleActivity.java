@@ -143,7 +143,7 @@ public class ScheduleActivity extends AppCompatActivity {
                 String memo  = Memo.getText().toString();
                 int starttime = Integer.parseInt(setStartDate.getString("Hour","")+setStartDate.getString("Min",""));;
                 int endtime = Integer.parseInt(setEndDate.getString("Hour","")+setEndDate.getString("Min",""));;
-                short color= 'a';
+                int color= 1;
                 int settime=setAlarmTime.getSelectedItemPosition();
 
                 sqlDB = database.getWritableDatabase();
