@@ -77,7 +77,6 @@ public class ListViewAdapter extends BaseAdapter {
             title = holder.calendar;
         }
 
-        // 리스트 이름 보이기
         title.setText(list.get(pos));
 
         // 리스트 아이템을 터치 했을 때 이벤트 발생
