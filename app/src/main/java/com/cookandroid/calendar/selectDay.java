@@ -44,11 +44,11 @@ public class selectDay extends AppCompatActivity {
             if (c.moveToFirst()) {
                 do {
 
-                    //테이블에서 두개의 컬럼값을 가져와서
-                    String title = c.getString(0);
-                    int color = c.getInt(1);
-//                        Toast.makeText(MainActivity.this,title,Toast.LENGTH_SHORT).show();
-                    listviewadapter.setTitle(title,color);
+//                    //테이블에서 두개의 컬럼값을 가져와서
+//                    String title = c.getString(0);
+//                    int color = c.getInt(1);
+////                        Toast.makeText(MainActivity.this,title,Toast.LENGTH_SHORT).show();
+//                    listviewadapter.setTitle(title,color);
 
                 } while (c.moveToNext());
             }
