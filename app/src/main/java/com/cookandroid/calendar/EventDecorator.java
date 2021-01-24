@@ -17,68 +17,33 @@ import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 
 public class EventDecorator implements DayViewDecorator {
-    Context context;
-    private CalendarDay date;
-    myDBHelper database;
-    SQLiteDatabase sqlDB = null ;
-    boolean any = false;
-    int schedule=0;
-    ArrayList<Integer> Color = new ArrayList<Integer>();
+    private int lineenum;
+    private int color;
+    private HashSet<CalendarDay> dates;
 
-    public EventDecorator(Context context){
-        this.context = context;
+    public EventDecorator(int color , int linenum){
+        this.color = color;
+        this.lineenum = linenum;
+        dates = new HashSet<>();
     }
 
+    public boolean addDate(CalendarDay day) {
+        return dates.add(day);
+    }
     @Override
     public boolean shouldDecorate(CalendarDay day){
-        database = new myDBHelper(context);
-        sqlDB = database.getWritableDatabase();
-        any = false;
-        schedule = 0;
-        String MonthStr;
-        if (day.getMonth()<9) MonthStr = '0'+String.valueOf(day.getMonth()+1);
-        else MonthStr = String.valueOf(day.getMonth()+1);
-
-        String DayStr = "";
-        if (day.getDay()<10) DayStr = '0'+String.valueOf(day.getDay());
-        else DayStr = String.valueOf(day.getDay());
-
-        String sql = "select startDate,color from scheduleTable where startDate = "+day.getYear()+MonthStr+DayStr+";";
-        System.out.println(sql);
-        Cursor result = sqlDB.rawQuery(sql,null);
-
-        while(result.moveToNext()){
-            int startdate = result.getInt(0);
-            int color= result.getInt(1);
-            Color.add(color);
-            schedule++;
-            any=true;
-        }
-        result.close();
-        return any;
+        return dates.contains(day);
     }
 
     @Override
     public void decorate(DayViewFacade view){
-
-        //view.addSpan(AddTextToDates("ABC"));
-        //view.addSpan(new AddTextToDates("안녕하세요감사해요잘있어요"));
-//        view.addSpan(new AddTextToDates(0xFFFF0000,0));
-//        view.addSpan(new AddTextToDates(0xff00ff00,1));
-//        view.addSpan(new AddTextToDates(0xff0000ff,2));
-        int colorData=0xFF000000;
-        for(int i=0;i<=schedule;i++){
-            colorData=0xFF000000;
-//            if(Color.get(i)==1)colorData=0xFFFF0000;
-
-            view.addSpan(new AddTextToDates(colorData,i));
-        }
+        view.addSpan(new AddTextToDates(color,lineenum));
     }
 
-    public void setDate(Date date){
-        this.date = CalendarDay.from(date);
+    public boolean haveDays(CalendarDay day) {
+        return dates.contains(day);
     }
-
 }

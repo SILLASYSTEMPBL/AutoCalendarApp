@@ -41,6 +41,7 @@ import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 import java.io.File;
 import java.time.DayOfWeek;
 import java.util.Calendar;
+import java.util.Map;
 import java.util.Objects;
 import java.io.InputStream;
 
@@ -133,13 +134,57 @@ public class MainActivity extends AppCompatActivity implements  OnDateSelectedLi
         materialCalendarView.setBackgroundColor(setColor.getInt("backgroundColor",Color.parseColor("#ffffff")));
         oneDayDecorator = new OneDayDecorator();
 
+        int colorcount = 8;
+        int[] colorIndex = {0xffffffff,0xffadadad,0xff03fcfc,0xffffff00,0xff00ff00,0xffff00ff,0xffff8800,0xff8078ff};
+        int lineMax = 6;
+        EventDecorator[][] decorators = new EventDecorator[colorcount][lineMax];
+        for (int K=0;K < colorcount;K++) {
+            for (int i = 0; i < lineMax; i++)
+                decorators[K][i] = new EventDecorator(colorIndex[K], i);
+        }
+        database = new myDBHelper(activity);
+        sqlDB = database.getReadableDatabase();
+        String sql = "select startDate,color from scheduleTable;";
+        Cursor result = sqlDB.rawQuery(sql,null);
+        Calendar calendar = Calendar.getInstance();
+        while(result.moveToNext()){
+            int date = result.getInt(0);
+            int color = result.getInt(1);
+
+            int year = date/10000;
+            int month = (date/100)%100;
+            int days = date%100;
+            calendar.set(year,month-1,days);
+            CalendarDay day = CalendarDay.from(calendar);
+            for (int K=0;K<colorcount;K++) {
+                if (color == colorIndex[K]) {
+                    for (int i=0;i<lineMax;i++) {
+                        boolean checker=true;
+                        for (int J=0;J<colorcount;J++) {
+                            if (decorators[J][i].haveDays(day) == true)
+                                checker = false;
+                        }
+                        if (checker == true) {
+                            decorators[K][i].addDate(day);
+                            System.out.println("TagLog : Draw Line : "+i+" Color : "+colorIndex[K]+" day : "+day);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        result.close();
+
         materialCalendarView.addDecorators(
                 new SundayDecorator(),
                 new SaturdayDecorator(),
                 new WeekdayDecorator(),
-                new EventDecorator(MainActivity.this),
                 oneDayDecorator
         );
+        for (int K=0;K<colorcount;K++) {
+            for (int i = 0; i < lineMax; i++)
+                materialCalendarView.addDecorator(decorators[K][i]);
+        }
         materialCalendarView.setSelectedDate(CalendarDay.today());
         textView = (TextView)findViewById(R.id.yymmdd);
         textView.setText("다가올 일정");
