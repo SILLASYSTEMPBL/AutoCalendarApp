@@ -6,8 +6,18 @@
     android:orientation="horizontal">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_margin="15dp"
+        android:layout_width="200sp"
+        android:layout_height="100sp"
+        android:textSize="25dp"
+        android:gravity="center"
         android:id="@+id/itemTitle"/>
+
+    <TextView
+        android:layout_margin="15dp"
+        android:layout_width="100sp"
+        android:layout_height="100sp"
+        android:gravity="center"
+        android:id="@+id/itemColor"/>
 
 </LinearLayout>

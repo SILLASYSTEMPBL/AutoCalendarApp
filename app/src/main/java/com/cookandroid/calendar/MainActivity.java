@@ -194,7 +194,6 @@ public class MainActivity extends AppCompatActivity implements  OnDateSelectedLi
 
     @Override
     public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-
         int startDate = date.getYear()*10000 + (date.getMonth()+1)*100 + date.getDay();
         // 뷰 호출
         view = activity.getLayoutInflater().inflate(R.layout.listview, null);
@@ -209,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements  OnDateSelectedLi
         database = new myDBHelper(activity);
        sqlDB = database.getReadableDatabase();
 
-        Cursor c = sqlDB.rawQuery("SELECT title FROM scheduleTable WHERE startdate ='"+startDate+"'", null);
+        Cursor c = sqlDB.rawQuery("SELECT title,color FROM scheduleTable WHERE startdate ='"+startDate+"'", null);
 
         if (c != null) {
 
@@ -219,18 +218,17 @@ public class MainActivity extends AppCompatActivity implements  OnDateSelectedLi
 
                         //테이블에서 두개의 컬럼값을 가져와서
                         String title = c.getString(0);
+                        int color = c.getInt(1);
 //                        Toast.makeText(MainActivity.this,title,Toast.LENGTH_SHORT).show();
-                       listviewadapter.setTitle(title);
+                       listviewadapter.setTitle(title,color);
 
                     } while (c.moveToNext());
                 }
-            }
-
-            sqlDB.close();
 
 
+        }
 
-
+        sqlDB.close();
 
         //대화상자 생성 코드
         AlertDialog.Builder listViewDialog = new AlertDialog.Builder(activity);
@@ -238,12 +236,15 @@ public class MainActivity extends AppCompatActivity implements  OnDateSelectedLi
         listViewDialog.setView(view);
 
         listViewDialog.setPositiveButton("확인", null);
-        listViewDialog.setTitle("ListView DiaLog");
+        listViewDialog.setTitle((date.getMonth()+1)+"월 "+date.getDay()+"일 ");
         AlertDialog msgDlg = listViewDialog.create();
         msgDlg.show();
 
-//        eventDialog eventDlg = new eventDialog(MainActivity.this);
-////        eventDlg.callFunction(date.getYear(),date.getMonth(),date.getDay(),date.getCalendar().get(Calendar.DAY_OF_WEEK));
+
+
+
+
+
     }
 
     public void TakeFromAlbum() {
