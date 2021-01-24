@@ -30,9 +30,9 @@ public class ScheduleActivity extends AppCompatActivity {
         final SharedPreferences setColor = getSharedPreferences("settingColor",MODE_PRIVATE);
         SharedPreferences.Editor editor = setColor.edit();
         final SharedPreferences setStartDate = getSharedPreferences("startTimer",MODE_PRIVATE);
-        SharedPreferences.Editor editor1 = setStartDate.edit();
+        final SharedPreferences.Editor editor1 = setStartDate.edit();
         final SharedPreferences setEndDate = getSharedPreferences("endTimer",MODE_PRIVATE);
-        SharedPreferences.Editor editor2 = setEndDate.edit();
+        final SharedPreferences.Editor editor2 = setEndDate.edit();
         editor.putInt("scheduleColor", Color.parseColor("#000000"));
         editor.apply();
         super.onCreate(savedInstanceState);
@@ -101,7 +101,7 @@ public class ScheduleActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dateDialog stDlg = new dateDialog(ScheduleActivity.this);
                 stDlg.callFunction(startDButton,setStartDate.getString("Year",""),setStartDate.getString("Month",""),
-                        setStartDate.getString("Day",""),setStartDate.getString("Hour",""),setStartDate.getString("Min",""),0);
+                        setStartDate.getString("Day",""),setStartDate.getString("Hour",""),setStartDate.getString("Min",""),0,endDButton);
             }
         });
 
@@ -110,7 +110,7 @@ public class ScheduleActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dateDialog stDlg = new dateDialog(ScheduleActivity.this);
                 stDlg.callFunction(endDButton,setEndDate.getString("Year",""),setEndDate.getString("Month",""),
-                        setEndDate.getString("Day",""),setEndDate.getString("Hour",""),setEndDate.getString("Min",""),1);
+                        setEndDate.getString("Day",""),setEndDate.getString("Hour",""),setEndDate.getString("Min",""),1,startDButton);
             }
         });
 

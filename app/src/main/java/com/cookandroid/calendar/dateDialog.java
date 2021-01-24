@@ -25,12 +25,16 @@ public class dateDialog extends AppCompatActivity {
     private Context context;
     SharedPreferences s_timer;
     SharedPreferences.Editor editor;
+    SharedPreferences e_timer;
+    SharedPreferences.Editor editorE;
 
     ArrayList<String> arrayList;
     ArrayAdapter<String> arrayAdapter;
 
     ArrayList<String> yearList;
     ArrayAdapter<String> yearAdapter;
+
+    int TypeNum=0;
 
     Spinner yearSpinner;
     Spinner monthSpinner;
@@ -40,23 +44,32 @@ public class dateDialog extends AppCompatActivity {
 
     public dateDialog(Context context) {
         this.context = context;
-
         s_timer = context.getSharedPreferences("startTimer",MODE_PRIVATE);
         editor = s_timer.edit();
+        e_timer = context.getSharedPreferences("endTimer",MODE_PRIVATE);
+        editorE = e_timer.edit();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    protected void callFunction(final Button button, String Y, String M, String D, String H, String Minute, int Type) {
+    protected void callFunction(final Button button, String Y, String M, String D, String H, String Minute, int Type,final Button buttonN) {
         final Dialog dlg = new Dialog(context);
         String Year = Y;
         String Month = M;
         String Day = D;
         String Hour = H;
         String Min = Minute;
+        TypeNum = Type;
 
-        if(Type==0) s_timer = context.getSharedPreferences("startTimer",MODE_PRIVATE);
-        else s_timer = context.getSharedPreferences("endTimer",MODE_PRIVATE);
+        if(Type==0) {
+            s_timer = context.getSharedPreferences("startTimer",MODE_PRIVATE);
+            e_timer = context.getSharedPreferences("endTimer",MODE_PRIVATE);
+        }
+        else {
+            s_timer = context.getSharedPreferences("endTimer",MODE_PRIVATE);
+            e_timer = context.getSharedPreferences("startTimer",MODE_PRIVATE);
+        }
         editor = s_timer.edit();
+        editorE = e_timer.edit();
         dlg.setContentView(R.layout.schedule_date);
         dlg.show();
 
@@ -115,8 +128,76 @@ public class dateDialog extends AppCompatActivity {
                 if (timeP.getMinute()<10) editor.putString("Min",'0'+String.valueOf(timeP.getMinute()));
                 else editor.putString("Min",String.valueOf(timeP.getMinute()));
                 editor.apply();
-                button.setText(s_timer.getString("Year","")+"/"+s_timer.getString("Month",""+"")+"/"
+                button.setText(s_timer.getString("Year","")+"/"+s_timer.getString("Month","")+"/"
                         +s_timer.getString("Day","")+" "+s_timer.getString("Hour","")+":"+s_timer.getString("Min",""));
+
+                if (TypeNum==0) {
+                    int startdate = Integer.parseInt(s_timer.getString("Year","")+s_timer.getString("Month","")
+                            +s_timer.getString("Day",""));
+                    int enddate = Integer.parseInt(e_timer.getString("Year","")+e_timer.getString("Month","")
+                            +e_timer.getString("Day",""));
+                    if (startdate==enddate) {
+                        int starttime = Integer.parseInt(s_timer.getString("Hour", "") + s_timer.getString("Min", ""));
+                        int endtime = Integer.parseInt(e_timer.getString("Hour", "") + e_timer.getString("Min", ""));
+
+                        if (starttime > endtime) {
+                            editorE.putString("Year", s_timer.getString("Year", ""));
+                            editorE.putString("Month", s_timer.getString("Month", ""));
+                            editorE.putString("Day", s_timer.getString("Day", ""));
+                            editorE.putString("Hour", s_timer.getString("Hour", ""));
+                            editorE.putString("Min", s_timer.getString("Min", ""));
+                            editorE.apply();
+                            buttonN.setText(e_timer.getString("Year", "") + "/" + e_timer.getString("Month", "" + "") + "/"
+                                    + e_timer.getString("Day", "") + " " + e_timer.getString("Hour", "") + ":" + e_timer.getString("Min", ""));
+
+                        }
+                    }
+                    else if (startdate>enddate) {
+                        editorE.putString("Year", s_timer.getString("Year", ""));
+                        editorE.putString("Month", s_timer.getString("Month", ""));
+                        editorE.putString("Day", s_timer.getString("Day", ""));
+                        editorE.putString("Hour", s_timer.getString("Hour", ""));
+                        editorE.putString("Min", s_timer.getString("Min", ""));
+                        editorE.apply();
+                        buttonN.setText(e_timer.getString("Year", "") + "/" + e_timer.getString("Month", "" + "") + "/"
+                                + e_timer.getString("Day", "") + " " + e_timer.getString("Hour", "") + ":" + e_timer.getString("Min", ""));
+                    }
+                }
+
+                if (TypeNum==1) {
+                    int enddate = Integer.parseInt(s_timer.getString("Year","")+s_timer.getString("Month","")
+                            +s_timer.getString("Day",""));
+                    int startdate = Integer.parseInt(e_timer.getString("Year","")+e_timer.getString("Month","")
+                            +e_timer.getString("Day",""));
+                    if (startdate==enddate) {
+                        int endtime = Integer.parseInt(s_timer.getString("Hour", "") + s_timer.getString("Min", ""));
+                        int starttime = Integer.parseInt(e_timer.getString("Hour", "") + e_timer.getString("Min", ""));
+
+                        if (starttime > endtime) {
+                            editorE.putString("Year", s_timer.getString("Year", ""));
+                            editorE.putString("Month", s_timer.getString("Month", ""));
+                            editorE.putString("Day", s_timer.getString("Day", ""));
+                            editorE.putString("Hour", s_timer.getString("Hour", ""));
+                            editorE.putString("Min", s_timer.getString("Min", ""));
+                            editorE.apply();
+                            buttonN.setText(e_timer.getString("Year", "") + "/" + e_timer.getString("Month", "" + "") + "/"
+                                    + e_timer.getString("Day", "") + " " + e_timer.getString("Hour", "") + ":" + e_timer.getString("Min", ""));
+
+                        }
+                    }
+
+                    else if (startdate>enddate) {
+                        editorE.putString("Year", s_timer.getString("Year", ""));
+                        editorE.putString("Month", s_timer.getString("Month", ""));
+                        editorE.putString("Day", s_timer.getString("Day", ""));
+                        editorE.putString("Hour", s_timer.getString("Hour", ""));
+                        editorE.putString("Min", s_timer.getString("Min", ""));
+                        editorE.apply();
+                        buttonN.setText(e_timer.getString("Year", "") + "/" + e_timer.getString("Month", "" + "") + "/"
+                                + e_timer.getString("Day", "") + " " + e_timer.getString("Hour", "") + ":" + e_timer.getString("Min", ""));
+                    }
+                }
+
                 dlg.dismiss();
             }
         });
