@@ -44,11 +44,11 @@ public class selectDay extends AppCompatActivity {
             if (c.moveToFirst()) {
                 do {
 
-//                    //테이블에서 두개의 컬럼값을 가져와서
+                    //테이블에서 두개의 컬럼값을 가져와서
 //                    String title = c.getString(0);
-//                    int color = c.getInt(1);
-////                        Toast.makeText(MainActivity.this,title,Toast.LENGTH_SHORT).show();
-//                    listviewadapter.setTitle(title,color);
+                  int color = c.getInt(1);
+//                        Toast.makeText(MainActivity.this,title,Toast.LENGTH_SHORT).show();
+
 
                 } while (c.moveToNext());
             }
@@ -56,11 +56,11 @@ public class selectDay extends AppCompatActivity {
 
         }
 
-        sqlDB.close();
-        startdate.setText();
-        enddate.setText();
-        alarm.setText();
-        settime.setText();
-        memo.setText();
+//        sqlDB.close();
+//        startdate.setText();
+//        enddate.setText();
+//        alarm.setText();
+//        settime.setText();
+//        memo.setText();
     }
 }
