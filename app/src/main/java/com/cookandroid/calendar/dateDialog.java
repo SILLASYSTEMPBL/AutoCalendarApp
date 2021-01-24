@@ -182,7 +182,7 @@ public class dateDialog extends AppCompatActivity {
                             editorE.apply();
                             buttonN.setText(e_timer.getString("Year", "") + "/" + e_timer.getString("Month", "" + "") + "/"
                                     + e_timer.getString("Day", "") + " " + e_timer.getString("Hour", "") + ":" + e_timer.getString("Min", ""));
-
+                            //!!//
                         }
                     }
 
