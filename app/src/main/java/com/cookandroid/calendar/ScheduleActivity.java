@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -151,52 +152,56 @@ public class ScheduleActivity extends AppCompatActivity {
                 EditText setTitle = (EditText)findViewById(R.id.setTitle);
                 Spinner setAlarm = (Spinner)findViewById(R.id.setAlarm);
                 Spinner setAlarmTime = (Spinner)findViewById(R.id.setAlarmTime);
+                if(setTitle.getText().toString().length()!=0) {
+                    int alarmtimeset = setAlarmTime.getSelectedItemPosition();
+                    switch (alarmtimeset) {
+                        case 0:
+                            break;
+                        case 1:
+                            calendar.add(Calendar.MINUTE, -5);
+                            break;
+                        case 2:
+                            calendar.add(Calendar.MINUTE, -10);
+                            break;
+                        case 3:
+                            calendar.add(Calendar.MINUTE, -15);
+                            break;
+                        case 4:
+                            calendar.add(Calendar.MINUTE, -30);
+                            break;
+                        case 5:
+                            calendar.add(Calendar.HOUR_OF_DAY, -1);
+                            break;
+                        case 6:
+                            calendar.add(Calendar.DAY_OF_MONTH, -1);
+                            break;
+                    }
+                    System.out.println("TagLog : " + calendar.getTime());
 
-                int alarmtimeset = setAlarmTime.getSelectedItemPosition();
-                switch (alarmtimeset) {
-                    case 0:
-                        break;
-                    case 1:
-                        calendar.add(Calendar.MINUTE,-5);
-                        break;
-                    case 2:
-                        calendar.add(Calendar.MINUTE,-10);
-                        break;
-                    case 3:
-                        calendar.add(Calendar.MINUTE,-15);
-                        break;
-                    case 4:
-                        calendar.add(Calendar.MINUTE,-30);
-                        break;
-                    case 5:
-                        calendar.add(Calendar.HOUR_OF_DAY,-1);
-                        break;
-                    case 6:
-                        calendar.add(Calendar.DAY_OF_MONTH,-1);
-                        break;
+                    EditText Memo = (EditText) findViewById(R.id.Memo);
+                    int startdate = Integer.parseInt(setStartDate.getString("Year", "") + setStartDate.getString("Month", "") + setStartDate.getString("Day", ""));
+                    int enddate = Integer.parseInt(setEndDate.getString("Year", "") + setEndDate.getString("Month", "") + setEndDate.getString("Day", ""));
+                    String title = setTitle.getText().toString();
+                    int alarm = setAlarm.getSelectedItemPosition();
+                    String memo = Memo.getText().toString();
+                    int starttime = Integer.parseInt(setStartDate.getString("Hour", "") + setStartDate.getString("Min", ""));
+                    ;
+                    int endtime = Integer.parseInt(setEndDate.getString("Hour", "") + setEndDate.getString("Min", ""));
+                    ;
+                    int color = setColor.getInt("scheduleColor", 0xFF000000);
+                    int settime = setAlarmTime.getSelectedItemPosition();
+
+                    diaryNotification(calendar, alarm);
+
+                    sqlDB = database.getWritableDatabase();
+
+                    System.out.println(startdate);
+                    sqlDB.execSQL("INSERT INTO scheduleTable VALUES('" + startdate + "','" + enddate + "','" + title + "','" + alarm + "','" + memo + "','" + starttime + "','" + endtime + "','" + color + "','" + settime + "'); ");
+                    sqlDB.close();
+                    Intent setIntent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(setIntent);
                 }
-                System.out.println("TagLog : "+calendar.getTime());
-
-                EditText Memo = (EditText)findViewById(R.id.Memo);
-                int startdate = Integer.parseInt(setStartDate.getString("Year","")+setStartDate.getString("Month","")+setStartDate.getString("Day",""));
-                int enddate = Integer.parseInt(setEndDate.getString("Year","")+setEndDate.getString("Month","")+setEndDate.getString("Day",""));
-                String title = setTitle.getText().toString();
-                int alarm = setAlarm.getSelectedItemPosition();
-                String memo  = Memo.getText().toString();
-                int starttime = Integer.parseInt(setStartDate.getString("Hour","")+setStartDate.getString("Min",""));;
-                int endtime = Integer.parseInt(setEndDate.getString("Hour","")+setEndDate.getString("Min",""));;
-                int color= setColor.getInt("scheduleColor",0xFF000000);
-                int settime=setAlarmTime.getSelectedItemPosition();
-
-                diaryNotification(calendar,alarm);
-
-                sqlDB = database.getWritableDatabase();
-
-                System.out.println(startdate);
-                sqlDB.execSQL("INSERT INTO scheduleTable VALUES('"+startdate+"','"+enddate+"','"+title+"','"+alarm+"','"+memo+"','"+starttime+"','"+endtime+"','"+color+"','"+settime+"'); ");
-                sqlDB.close();
-                Intent setIntent = new Intent(getApplicationContext(),MainActivity.class);
-                startActivity(setIntent);
+                else Toast.makeText(ScheduleActivity.this, "제목을 입력하세요", Toast.LENGTH_SHORT).show();
             }
         });
     }
