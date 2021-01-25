@@ -15,6 +15,8 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.Objects;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class DeviceBootReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -27,7 +29,7 @@ public class DeviceBootReceiver extends BroadcastReceiver {
             AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 //
 
-            SharedPreferences sharedPreferences = context.getSharedPreferences("daily alarm",Context.MODE_PRIVATE);
+            SharedPreferences sharedPreferences = context.getSharedPreferences("daily alarm", MODE_PRIVATE);
             long millis = sharedPreferences.getLong("nextNotifyTime", Calendar.getInstance().getTimeInMillis());
 
 

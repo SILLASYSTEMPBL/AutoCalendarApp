@@ -83,6 +83,7 @@ public class ScheduleActivity extends AppCompatActivity {
         editor1.apply();
         editor2.apply();
         final Button setButton = (Button)findViewById(R.id.setButton);
+        final Button cancelButton = (Button)findViewById(R.id.CancelButton);
         final Button colorButton = (Button) findViewById(R.id.color);
         final Button startDButton = (Button) findViewById(R.id.startDateButton);
         final Button endDButton = (Button) findViewById(R.id.endDateButton);
@@ -134,6 +135,15 @@ public class ScheduleActivity extends AppCompatActivity {
                     startDayLayout.setVisibility(View.VISIBLE);
                     endDayLayout.setVisibility(View.VISIBLE);
                 }
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sqlDB.close();
+                Intent setIntent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(setIntent);
             }
         });
 
@@ -214,5 +224,7 @@ public class ScheduleActivity extends AppCompatActivity {
         Intent alarmIntent = new Intent(this, AlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
     }
 }

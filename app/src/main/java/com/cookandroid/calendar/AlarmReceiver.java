@@ -23,7 +23,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Intent notificationIntent = new Intent(context, MainActivity.class);
 
-        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
         PendingIntent pendingI = PendingIntent.getActivity(context, 0,
                 notificationIntent, 0);
@@ -57,8 +58,8 @@ public class AlarmReceiver extends BroadcastReceiver {
                 .setWhen(System.currentTimeMillis())
 
                 .setTicker("{Time to watch some cool stuff!}")
-                .setContentTitle("알람 울립니다.")
-                .setContentText("빨리 받으셔")
+                .setContentTitle("상태바 드래그시 보이는 타이틀")
+                .setContentText("상태바 드래그시 보이는 서브타이틀")
                 .setContentInfo("INFO")
                 .setContentIntent(pendingI);
 
