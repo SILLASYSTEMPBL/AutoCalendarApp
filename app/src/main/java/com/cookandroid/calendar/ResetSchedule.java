@@ -146,7 +146,6 @@ public class ResetSchedule extends AppCompatActivity {
                 int settime=setAlarmTime.getSelectedItemPosition();
 
                 sqlDB = database.getWritableDatabase();
-                System.out.println("이진우"+startdate);
                 sqlDB.execSQL("UPDATE scheduleTable SET startdate ="+startdate+", enddate ="+enddate
                         +" , title='"+title+"' , alarm ="+alarm+" , memo ='"+memo+"' , starttime ="+starttime
                         +" , endtime ="+endtime+" , color="+color+" , settime ="+settime+" WHERE title='"+righttitle+"'" );
