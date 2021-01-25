@@ -32,7 +32,7 @@ public class selectDay extends AppCompatActivity {
         TextView memo = (TextView)findViewById(R.id.memoSelect);
 
         Intent intent = getIntent();
-        String righttitle = intent.getExtras().getString("title")
+        String righttitle = intent.getExtras().getString("title");
         title.setText(righttitle);
 
 

@@ -18,6 +18,7 @@
         <item>15분전</item>
         <item>30분전</item>
         <item>1시간전</item>
+        <item>하루전</item>
     </string-array>
     <string name="startDay">시작요일</string>
     <string-array

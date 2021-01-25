@@ -1,9 +1,15 @@
 package com.cookandroid.calendar;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.Switch;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class ScheduleActivity extends AppCompatActivity {
@@ -132,9 +139,44 @@ public class ScheduleActivity extends AppCompatActivity {
         setButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(System.currentTimeMillis());
+                calendar.set(Calendar.YEAR, Integer.parseInt(setStartDate.getString("Year","")));
+                calendar.set(Calendar.MONTH, Integer.parseInt(setStartDate.getString("Month",""))-1);
+                calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(setStartDate.getString("Day","")));
+                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(setStartDate.getString("Hour","")));
+                calendar.set(Calendar.MINUTE, Integer.parseInt(setStartDate.getString("Min","")));
+                calendar.set(Calendar.SECOND, 0);
+
                 EditText setTitle = (EditText)findViewById(R.id.setTitle);
                 Spinner setAlarm = (Spinner)findViewById(R.id.setAlarm);
                 Spinner setAlarmTime = (Spinner)findViewById(R.id.setAlarmTime);
+
+                int alarmtimeset = setAlarmTime.getSelectedItemPosition();
+                switch (alarmtimeset) {
+                    case 0:
+                        break;
+                    case 1:
+                        calendar.add(Calendar.MINUTE,-5);
+                        break;
+                    case 2:
+                        calendar.add(Calendar.MINUTE,-10);
+                        break;
+                    case 3:
+                        calendar.add(Calendar.MINUTE,-15);
+                        break;
+                    case 4:
+                        calendar.add(Calendar.MINUTE,-30);
+                        break;
+                    case 5:
+                        calendar.add(Calendar.HOUR_OF_DAY,-1);
+                        break;
+                    case 6:
+                        calendar.add(Calendar.DAY_OF_MONTH,-1);
+                        break;
+                }
+                System.out.println("TagLog : "+calendar.getTime());
+
                 EditText Memo = (EditText)findViewById(R.id.Memo);
                 int startdate = Integer.parseInt(setStartDate.getString("Year","")+setStartDate.getString("Month","")+setStartDate.getString("Day",""));
                 int enddate = Integer.parseInt(setEndDate.getString("Year","")+setEndDate.getString("Month","")+setEndDate.getString("Day",""));
@@ -146,6 +188,8 @@ public class ScheduleActivity extends AppCompatActivity {
                 int color= setColor.getInt("scheduleColor",0xFF000000);
                 int settime=setAlarmTime.getSelectedItemPosition();
 
+                diaryNotification(calendar,alarm);
+
                 sqlDB = database.getWritableDatabase();
                 System.out.println(startdate);
                 sqlDB.execSQL("INSERT INTO scheduleTable VALUES('"+startdate+"','"+enddate+"','"+title+"','"+alarm+"','"+memo+"','"+starttime+"','"+endtime+"','"+color+"','"+settime+"'); ");
@@ -154,5 +198,15 @@ public class ScheduleActivity extends AppCompatActivity {
                 startActivity(setIntent);
             }
         });
+    }
+
+    private void diaryNotification(Calendar calendar,int alarm) {
+        boolean notify = true;
+
+        PackageManager pm = this.getPackageManager();
+        ComponentName receiver = new ComponentName(this, DeviceBootReceiver.class);
+        Intent alarmIntent = new Intent(this, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
     }
 }
