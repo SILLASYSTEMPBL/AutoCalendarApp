@@ -41,7 +41,7 @@ public class ScheduleActivity extends AppCompatActivity {
         final SharedPreferences.Editor editor1 = setStartDate.edit();
         final SharedPreferences setEndDate = getSharedPreferences("endTimer",MODE_PRIVATE);
         final SharedPreferences.Editor editor2 = setEndDate.edit();
-        editor.putInt("scheduleColor", Color.parseColor("#000000"));
+        editor.putInt("scheduleColor", Color.parseColor("#ffffff"));
         editor.apply();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.schedulemain);
@@ -89,7 +89,7 @@ public class ScheduleActivity extends AppCompatActivity {
         final Switch allDaySwitch = (Switch) findViewById(R.id.allDaySwitch);
         final LinearLayout startDayLayout = (LinearLayout) findViewById(R.id.start_Date_Layout);
         final LinearLayout endDayLayout = (LinearLayout) findViewById(R.id.end_Date_Layout);
-        colorButton.setBackgroundColor(Color.BLACK);
+        colorButton.setBackgroundColor(Color.WHITE);
 
         startDButton.setText(setStartDate.getString("Year","")+"/"+setStartDate.getString("Month",""+"")+"/"
                 +setStartDate.getString("Day","")+" "+setStartDate.getString("Hour","")+":"+setStartDate.getString("Min",""));
