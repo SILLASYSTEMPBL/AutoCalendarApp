@@ -191,6 +191,7 @@ public class ScheduleActivity extends AppCompatActivity {
                 diaryNotification(calendar,alarm);
 
                 sqlDB = database.getWritableDatabase();
+
                 System.out.println(startdate);
                 sqlDB.execSQL("INSERT INTO scheduleTable VALUES('"+startdate+"','"+enddate+"','"+title+"','"+alarm+"','"+memo+"','"+starttime+"','"+endtime+"','"+color+"','"+settime+"'); ");
                 sqlDB.close();
