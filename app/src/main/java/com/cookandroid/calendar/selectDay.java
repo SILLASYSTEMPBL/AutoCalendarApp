@@ -43,12 +43,12 @@ public class selectDay extends AppCompatActivity  {
 
 
         Intent intent = getIntent();
-        String righttitle = intent.getExtras().getString("title");
+        final String righttitle = intent.getExtras().getString("title");
         title.setText(righttitle);
 
 
 
-            Cursor c = sqlDB.rawQuery("SELECT * FROM scheduleTable WHERE title ='"+righttitle+"'", null);
+            Cursor c = sqlDB.rawQuery("SELECT * FROM scheduleTable WHERE title ='"+righttitle+"' AND startdate", null);
 
             if (c != null) {
 
@@ -78,7 +78,8 @@ public class selectDay extends AppCompatActivity  {
             setAgain.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(activity.getApplicationContext(),ScheduleActivity.class);
+                    Intent intent = new Intent(activity.getApplicationContext(),ResetSchedule.class);
+                    intent.putExtra("Title2",righttitle);
                     activity.startActivity(intent);
                 }
             });
@@ -86,6 +87,7 @@ public class selectDay extends AppCompatActivity  {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(activity.getApplicationContext(),MainActivity.class);
+
                     activity.startActivity(intent);
                 }
             });
