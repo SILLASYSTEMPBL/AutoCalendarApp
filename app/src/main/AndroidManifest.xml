@@ -19,6 +19,7 @@ package="com.cookandroid.calendar">
         <activity android:name=".selectDay"/>
         <activity android:name=".ScheduleActivity"/>
         <activity android:name=".SettingActivity"/>
+        <activity android:name=".ResetSchedule"/>
     </application>
 
 </manifest>
