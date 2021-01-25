@@ -186,8 +186,7 @@ public class MainActivity extends AppCompatActivity implements  OnDateSelectedLi
                 materialCalendarView.addDecorator(decorators[K][i]);
         }
         materialCalendarView.setSelectedDate(CalendarDay.today());
-        textView = (TextView)findViewById(R.id.yymmdd);
-        textView.setText("다가올 일정");
+
 
     }
 
