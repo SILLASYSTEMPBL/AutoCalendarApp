@@ -38,9 +38,14 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
+import org.w3c.dom.Text;
+
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.io.InputStream;
@@ -63,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements  OnDateSelectedLi
     String url = "tmp_"+String.valueOf(System.currentTimeMillis())+".jpg";
     Uri mImageCaptureUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(), url));
 
+    
 
 
 
@@ -76,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements  OnDateSelectedLi
         dayofweek = setting1.getInt("startday",1);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         activity = this;
 
@@ -173,7 +180,64 @@ public class MainActivity extends AppCompatActivity implements  OnDateSelectedLi
                 }
             }
         }
+
         result.close();
+
+        //##################다가올 일정 table#############################//
+
+        //View 설정
+        TextView title1 = (TextView)findViewById(R.id.tableTitle1);
+        TextView title2 = (TextView)findViewById(R.id.tableTitle2);
+        TextView Date1 = (TextView)findViewById(R.id.tableDate1);
+        TextView Date2 = (TextView)findViewById(R.id.tableDate2);
+
+        //현재 날짜 설정
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat weekdayFormat = new SimpleDateFormat("EE", Locale.getDefault());
+        SimpleDateFormat dayFormat = new SimpleDateFormat("dd", Locale.getDefault());
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MM", Locale.getDefault());
+        SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy", Locale.getDefault());
+
+        String weekDay = weekdayFormat.format(currentTime);
+        String year = yearFormat.format(currentTime);
+        String month = monthFormat.format(currentTime);
+        String day = dayFormat.format(currentTime);
+
+
+
+        database = new myDBHelper(activity);
+        sqlDB = database.getReadableDatabase();
+        Cursor c = sqlDB.rawQuery("select startDate,title from scheduleTable",null);
+        int i=0;
+        while(c.moveToNext()){
+            int date = c.getInt(0);
+            String title = c.getString(1);
+
+
+            int today =Integer.parseInt(year+month+day);
+            if(date>today){
+                if(i==0){
+                    title1.setText(title);
+                    Date1.setText(String.valueOf(date%10000/100)+"월 "+String.valueOf(date%100) +"일");
+
+                }
+                else if(i==1){
+                    title2.setText(title);
+                    Date2.setText(String.valueOf(date%10000/100)+"월 "+String.valueOf(date%100) +"일");
+                }
+                else{
+                    break;
+                }
+                i++;
+            }
+
+        }
+
+        c.close();
+
+
+        //##################다가올 일정 table#############################//
+
 
         materialCalendarView.addDecorators(
                 new SundayDecorator(),
@@ -182,7 +246,7 @@ public class MainActivity extends AppCompatActivity implements  OnDateSelectedLi
                 oneDayDecorator
         );
         for (int K=0;K<colorcount;K++) {
-            for (int i = 0; i < lineMax; i++)
+            for (i = 0; i < lineMax; i++)
                 materialCalendarView.addDecorator(decorators[K][i]);
         }
         materialCalendarView.setSelectedDate(CalendarDay.today());

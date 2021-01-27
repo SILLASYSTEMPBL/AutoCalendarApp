@@ -58,72 +58,61 @@
             >
             <TableRow>
                 <TextView
-                    android:layout_width="100sp"
+                    android:layout_width="200sp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:textSize="20sp"
-                    android:text="다가올 일정 "
+                    android:text="Next Schedule"
                     />
                 <TextView
                     android:layout_width="100sp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:textSize="20sp"
-                    android:text="제목 "
-                    />
-                <TextView
-                    android:layout_width="100sp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="20sp"
-                    android:text="날짜 "
+                    android:text="Date"
                     />
             </TableRow>
             <TableRow>
                 <TextView
-                    android:layout_width="100sp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="20sp"
-                    android:text="다가올 일정 "
-                    />
-                <TextView
-                    android:layout_width="100sp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="20sp"
-                    android:text="제목 "
-                    />
-                <TextView
+                    android:id="@+id/tableTitle1"
                     android:layout_width="100sp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:textSize="20sp"
                     android:text="날짜 "
+
                     />
+                <TextView
+                    android:id="@+id/tableDate1"
+                    android:layout_width="100sp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:text="날짜 "
+
+                    />
+
             </TableRow>
             <TableRow>
                 <TextView
-                    android:layout_width="100sp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="20sp"
-                    android:text="다가올 일정 "
-                    />
-                <TextView
-                    android:layout_width="100sp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="20sp"
-                    android:text="제목 "
-                    />
-                <TextView
+                    android:id="@+id/tableTitle2"
                     android:layout_width="100sp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:textSize="20sp"
                     android:text="날짜 "
+
                     />
+                <TextView
+                    android:id="@+id/tableDate2"
+                    android:layout_width="100sp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:text="날짜 "
+
+                    />
+
             </TableRow>
 
         </TableLayout>
