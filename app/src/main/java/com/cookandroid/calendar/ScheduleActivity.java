@@ -201,7 +201,7 @@ public class ScheduleActivity extends AppCompatActivity {
                     int color = setColor.getInt("scheduleColor", 0xFF000000);
                     int settime = setAlarmTime.getSelectedItemPosition();
 
-                    diaryNotification(calendar, alarm);
+                    diaryNotification(calendar, alarm,starttime,endtime);
 
                     sqlDB = database.getWritableDatabase();
 
@@ -216,13 +216,14 @@ public class ScheduleActivity extends AppCompatActivity {
         });
     }
 
-    private void diaryNotification(Calendar calendar,int alarm) {
+    private void diaryNotification(Calendar calendar,int alarm,int starttime,int endtime) {
         boolean notify = true;
 
         PackageManager pm = this.getPackageManager();
         ComponentName receiver = new ComponentName(this, DeviceBootReceiver.class);
         Intent alarmIntent = new Intent(this, AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
+        int Code = (starttime%10000)*10000 + endtime;
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, Code, alarmIntent, 0);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
