@@ -40,6 +40,7 @@ public class selectDay extends AppCompatActivity  {
         TextView memo = (TextView)findViewById(R.id.memoSelect);
         Button setAgain = (Button)findViewById(R.id.setagain);
         Button Home = (Button)findViewById(R.id.home);
+        Button remove = (Button)findViewById(R.id.remove);
 
 
         Intent intent = getIntent();
@@ -72,14 +73,13 @@ public class selectDay extends AppCompatActivity  {
 
         }
 
-        sqlDB.close();
-
 
             setAgain.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(activity.getApplicationContext(),ResetSchedule.class);
                     intent.putExtra("Title2",righttitle);
+                    sqlDB.close();
                     activity.startActivity(intent);
                 }
             });
@@ -87,7 +87,17 @@ public class selectDay extends AppCompatActivity  {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(activity.getApplicationContext(),MainActivity.class);
+                    sqlDB.close();
+                    activity.startActivity(intent);
+                }
+            });
+            remove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sqlDB.execSQL("DELETE FROM scheduleTable WHERE title = '"+righttitle+"';");
 
+                    Intent intent = new Intent(activity.getApplicationContext(),MainActivity.class);
+                    sqlDB.close();
                     activity.startActivity(intent);
                 }
             });

@@ -206,7 +206,12 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="홈" />
-
+        <Button
+            android:id="@+id/remove"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="제거"/>
         <Button
             android:id="@+id/setagain"
             android:layout_width="match_parent"

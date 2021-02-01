@@ -120,12 +120,14 @@
 
         <Button
             android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:text="Button"
+            android:layout_width="70sp"
+            android:layout_height="70sp"
+            android:layout_gravity="right|top"
             android:layout_margin="10dp"
-            android:layout_gravity="right|top"/>
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/plusicon"
+            android:maxWidth="30dp"
+            android:maxHeight="30dp"/>
     </FrameLayout>
 
 </LinearLayout>
