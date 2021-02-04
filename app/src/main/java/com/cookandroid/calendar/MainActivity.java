@@ -1,11 +1,13 @@
 package com.cookandroid.calendar;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteAbortException;
 import android.database.sqlite.SQLiteDatabase;
@@ -17,9 +19,12 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -27,6 +32,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -53,12 +59,13 @@ import java.io.InputStream;
 public class MainActivity extends AppCompatActivity implements  OnDateSelectedListener{
 
     SharedPreferences setColor;
-
+    ImageView test;
     private Activity activity;
     private View view;
     public static ListViewAdapter listviewadapter;
     public static ListView listview;
 
+    TCP_Client tc;
 
     myDBHelper database;
     SQLiteDatabase sqlDB = null ;
@@ -82,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements  OnDateSelectedLi
         dayofweek = setting1.getInt("startday",1);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        checkSelfPermission();
 
         activity = this;
 
@@ -250,8 +257,35 @@ public class MainActivity extends AppCompatActivity implements  OnDateSelectedLi
                 materialCalendarView.addDecorator(decorators[K][i]);
         }
         materialCalendarView.setSelectedDate(CalendarDay.today());
+    }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == 1) {
+            int length = permissions.length;
+            for (int i=0;i<length;i++) {
+                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                    Log.i("TagLog : Permission ",permissions[i]);
+                }
+            }
+        }
+    }
 
+    private void checkSelfPermission() {
+        String temp = "";
+        if (ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            temp += Manifest.permission.READ_EXTERNAL_STORAGE + " ";
+        }
+
+        if (ContextCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            temp += Manifest.permission.WRITE_EXTERNAL_STORAGE + " ";
+        }
+
+        if (TextUtils.isEmpty(temp) == false) {
+            ActivityCompat.requestPermissions(this,temp.trim().split(" "),1);
+        } else {
+            Toast.makeText(this,"권한이 모두 허용상태입니다",Toast.LENGTH_SHORT).show();
+        }
     }
 
 
@@ -326,9 +360,17 @@ public class MainActivity extends AppCompatActivity implements  OnDateSelectedLi
         switch(requestCode) {
             case 1:
             {
+                Log.i("TagLog : CheckImage",String.format("%d",requestCode));
                 mImageCaptureUri = data.getData();
-
-                //Log.d("CheckImage",mImageCaptureUri.getPath().toString());
+                String[] proj = {MediaStore.Images.Media.DATA};
+                Cursor c = getContentResolver().query(mImageCaptureUri,proj,null,null,null);
+                c.moveToFirst();
+                int c_index = c.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                String imagePath = c.getString(c_index);
+                tc = new TCP_Client(imagePath);
+                tc.execute(this);
+                //Thread tc = new Thread((Runnable) new TCP_Client(mImageCaptureUri.getPath().toString()));
+                //tc.start();
 
                 Toast.makeText(MainActivity.this,data.getDataString(),Toast.LENGTH_SHORT).show();
                 break;

@@ -141,7 +141,7 @@ public class ScheduleActivity extends AppCompatActivity {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sqlDB.close();
+                //sqlDB.close();
                 Intent setIntent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(setIntent);
             }
