@@ -251,6 +251,8 @@ public class ScheduleActivity extends AppCompatActivity {
 
                     System.out.println(startdate);
                     sqlDB.execSQL("INSERT INTO scheduleTable VALUES('" + startdate + "','" + enddate + "','" + title + "','" + alarm + "','" + memo + "','" + starttime + "','" + endtime + "','" + color + "','" + settime + "'); ");
+                    //정렬
+                    //sqlDB.execSQL("Select * From scheduleTable order by startdate asc");
                     sqlDB.close();
                     Intent setIntent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(setIntent);

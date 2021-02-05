@@ -229,7 +229,7 @@ public class MainActivity extends AppCompatActivity implements  OnDateSelectedLi
 
         database = new myDBHelper(activity);
         sqlDB = database.getReadableDatabase();
-        Cursor c = sqlDB.rawQuery("select startDate,title from scheduleTable",null);
+        Cursor c = sqlDB.rawQuery("select startDate,title from scheduleTable order by startDate asc",null);
         int i=0;
         while(c.moveToNext()){
             int date = c.getInt(0);
