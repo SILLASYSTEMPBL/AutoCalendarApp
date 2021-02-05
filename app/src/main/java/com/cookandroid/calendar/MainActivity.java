@@ -14,6 +14,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -46,7 +47,14 @@ import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
 import org.w3c.dom.Text;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.util.Calendar;
@@ -57,6 +65,9 @@ import java.util.Objects;
 import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity implements  OnDateSelectedListener{
+
+    SharedPreferences msgData;
+    SharedPreferences.Editor msgEditor;
 
     SharedPreferences setColor;
     ImageView test;
@@ -84,6 +95,8 @@ public class MainActivity extends AppCompatActivity implements  OnDateSelectedLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences setting1 = getSharedPreferences("setting",MODE_PRIVATE);
+        msgData = getSharedPreferences("DATAMSG",MODE_PRIVATE);
+        msgEditor = msgData.edit();
         setColor = getSharedPreferences("backgroundColor",MODE_PRIVATE);
         int dayofweek ;
         dayofweek = setting1.getInt("startday",1);
@@ -367,10 +380,12 @@ public class MainActivity extends AppCompatActivity implements  OnDateSelectedLi
                 c.moveToFirst();
                 int c_index = c.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
                 String imagePath = c.getString(c_index);
-                tc = new TCP_Client(imagePath);
-                tc.execute(this);
-                //Thread tc = new Thread((Runnable) new TCP_Client(mImageCaptureUri.getPath().toString()));
-                //tc.start();
+                tc = new TCP_Client(this,imagePath);
+                //new TCP_task(imagePath).execute(this);
+
+                Intent shedule_Image_Intent = new Intent(getApplicationContext(),ScheduleActivity.class);
+                startActivity(shedule_Image_Intent);
+                tc.execute();
 
                 Toast.makeText(MainActivity.this,data.getDataString(),Toast.LENGTH_SHORT).show();
                 break;
@@ -383,5 +398,4 @@ public class MainActivity extends AppCompatActivity implements  OnDateSelectedLi
             }
         }
     }
-
 }

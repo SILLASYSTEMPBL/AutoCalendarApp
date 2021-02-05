@@ -2,6 +2,9 @@ package com.cookandroid.calendar;
 
 import android.content.ContentProvider;
 import android.content.ContentResolver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -26,9 +29,10 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class TCP_Client extends AsyncTask {
-    protected static String SERV_IP = "122.202.39.37";
+public class TCP_Client extends AsyncTask<String, Integer, Boolean> {
+    protected static String SERV_IP = "115.136.250.144";
     protected static int PORT = 9000;
+    SharedPreferences dataString;
     Uri image;
     String path;
     DataInputStream dis;
@@ -37,14 +41,15 @@ public class TCP_Client extends AsyncTask {
     Socket sock;
     Socket sock2;
     File file;
-    boolean outCheacker;
+    String msgData = "";
 
-    public TCP_Client(String path) {
-        this.path = path;outCheacker = true;
+    public TCP_Client(Context context, String path) {
+        this.path = path;
+        //dataString = getSharedPreferences("dataString",MODE_PRIVATE);
     }
 
     @Override
-    protected Object doInBackground(Object[] objects) {
+    protected Boolean doInBackground(String... strings) {
 
         try {
             Log.d("TCP","server connecting");
@@ -71,7 +76,7 @@ public class TCP_Client extends AsyncTask {
 
             dis = new DataInputStream(new FileInputStream(file));
             //FileInputStream dis = new FileInputStream(file);
-           // dis2 = new DataInputStream(sock.getInputStream());
+            // dis2 = new DataInputStream(sock.getInputStream());
             dos = new DataOutputStream(sock.getOutputStream());
 
             long fileSize = file.length();
@@ -92,7 +97,7 @@ public class TCP_Client extends AsyncTask {
 
 
 //            dos = new DataOutputStream(sock.getOutputStream());
-  //          dos.write('Hello!');
+            //          dos.write('Hello!');
         } catch(IOException e) {
             Log.i("TagLog : ", "don't send message");
             e.printStackTrace();
@@ -122,14 +127,40 @@ public class TCP_Client extends AsyncTask {
             dis2 = new DataInputStream(sock2.getInputStream());
             byte[] buf = new byte[1024];
             int readCount = dis2.read(buf);
-            String data = new String(buf,0,readCount,"UTF-8");
+            msgData = new String(buf,0,readCount,"UTF-8");
             dis2.close();
-            Log.i("TagLog : ",data);
+            Log.i("TagLog : ",msgData);
         } catch (IOException e) {
-                Log.i("TagLog : ", "don't receive message");
-                e.printStackTrace();
+            Log.i("TagLog : ", "don't receive message");
+            e.printStackTrace();
         }
-        return null;
+        //Intent schedule_Intent = new Intent(getApplicationContext(),ScheduleActivity.class);
+        //startActivity(schedule_Intent);
+        return true;
     }
 
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
+
+    @Override
+    protected void onPostExecute(Boolean aBoolean) {
+        super.onPostExecute(aBoolean);
+    }
+
+    @Override
+    protected void onProgressUpdate(Integer... values) {
+        super.onProgressUpdate(values);
+    }
+
+    @Override
+    protected void onCancelled(Boolean aBoolean) {
+        super.onCancelled(aBoolean);
+    }
+/*
+    @Override
+    protected void onProgressUpdate() {
+
+    }*/
 }
