@@ -29,11 +29,11 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class TCP_Client extends AsyncTask<String, Integer, Boolean> {
+public class TCP_Client implements Runnable {
+    SharedPreferences msgData;
+    SharedPreferences.Editor msgEditor;
     protected static String SERV_IP = "115.136.250.144";
     protected static int PORT = 9000;
-    SharedPreferences dataString;
-    Uri image;
     String path;
     DataInputStream dis;
     DataInputStream dis2;
@@ -41,16 +41,19 @@ public class TCP_Client extends AsyncTask<String, Integer, Boolean> {
     Socket sock;
     Socket sock2;
     File file;
-    String msgData = "";
+    String str;
+    Context context;
 
     public TCP_Client(Context context, String path) {
         this.path = path;
-        //dataString = getSharedPreferences("dataString",MODE_PRIVATE);
+        this.context = context;
+        msgData = context.getSharedPreferences("DATAMSG",Context.MODE_PRIVATE);
+        msgEditor = msgData.edit();
     }
 
-    @Override
-    protected Boolean doInBackground(String... strings) {
 
+    @Override
+    public void run() {
         try {
             Log.d("TCP","server connecting");
             InetAddress serverAddr = InetAddress.getByName(SERV_IP);
@@ -127,40 +130,14 @@ public class TCP_Client extends AsyncTask<String, Integer, Boolean> {
             dis2 = new DataInputStream(sock2.getInputStream());
             byte[] buf = new byte[1024];
             int readCount = dis2.read(buf);
-            msgData = new String(buf,0,readCount,"UTF-8");
+            str = new String(buf,0,readCount,"UTF-8");
             dis2.close();
-            Log.i("TagLog : ",msgData);
+            Log.i("TagLog : ",str);
+            msgEditor.putString("data",str);
+            msgEditor.apply();
         } catch (IOException e) {
             Log.i("TagLog : ", "don't receive message");
             e.printStackTrace();
         }
-        //Intent schedule_Intent = new Intent(getApplicationContext(),ScheduleActivity.class);
-        //startActivity(schedule_Intent);
-        return true;
     }
-
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-    }
-
-    @Override
-    protected void onPostExecute(Boolean aBoolean) {
-        super.onPostExecute(aBoolean);
-    }
-
-    @Override
-    protected void onProgressUpdate(Integer... values) {
-        super.onProgressUpdate(values);
-    }
-
-    @Override
-    protected void onCancelled(Boolean aBoolean) {
-        super.onCancelled(aBoolean);
-    }
-/*
-    @Override
-    protected void onProgressUpdate() {
-
-    }*/
 }

@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements  OnDateSelectedLi
     public static ListView listview;
 
     TCP_Client tc;
-
+    String msgString="";
     myDBHelper database;
     SQLiteDatabase sqlDB = null ;
     private MaterialCalendarView materialCalendarView;
@@ -128,6 +128,8 @@ public class MainActivity extends AppCompatActivity implements  OnDateSelectedLi
                             TakeFromAlbum();
                         } else if (item.getItemId() == R.id.action_menu2){
                             Toast.makeText(MainActivity.this,"텍스트 확인",Toast.LENGTH_SHORT).show();
+                            msgEditor.putString("data","!!");
+                            msgEditor.apply();
                             Intent schedule_Intent = new Intent(getApplicationContext(),ScheduleActivity.class);
                             startActivity(schedule_Intent);
                         }
@@ -380,14 +382,21 @@ public class MainActivity extends AppCompatActivity implements  OnDateSelectedLi
                 c.moveToFirst();
                 int c_index = c.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
                 String imagePath = c.getString(c_index);
+                boolean ch = true;
                 tc = new TCP_Client(this,imagePath);
+                Thread thread = new Thread(tc);
                 //new TCP_task(imagePath).execute(this);
+                thread.setDaemon(true);
+                thread.start();
 
+                try {
+                    thread.join();
+                } catch (InterruptedException e) {
+
+                }
                 Intent shedule_Image_Intent = new Intent(getApplicationContext(),ScheduleActivity.class);
                 startActivity(shedule_Image_Intent);
-                tc.execute();
-
-                Toast.makeText(MainActivity.this,data.getDataString(),Toast.LENGTH_SHORT).show();
+          //      Toast.makeText(MainActivity.this,data.getDataString(),Toast.LENGTH_SHORT).show();
                 break;
             }
 

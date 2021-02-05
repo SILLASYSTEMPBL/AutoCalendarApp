@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -36,6 +37,8 @@ public class ScheduleActivity extends AppCompatActivity {
   //      setColor = getSharedPreferences("settingColor",MODE_PRIVATE);
         final myDBHelper database = new myDBHelper(this);
         final SharedPreferences setColor = getSharedPreferences("settingColor",MODE_PRIVATE);
+        final SharedPreferences msgData = getSharedPreferences("DATAMSG",MODE_PRIVATE);
+        SharedPreferences.Editor msgEditor = msgData.edit();
         SharedPreferences.Editor editor = setColor.edit();
         final SharedPreferences setStartDate = getSharedPreferences("startTimer",MODE_PRIVATE);
         final SharedPreferences.Editor editor1 = setStartDate.edit();
@@ -46,42 +49,6 @@ public class ScheduleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.schedulemain);
 
-        SimpleDateFormat dateFormat;
-        long mNow = System.currentTimeMillis();
-        Min = "00";
-        Date date = new Date(mNow);
-        dateFormat = new SimpleDateFormat("yyyy");
-        Year = dateFormat.format(date);
-        editor1.putString("Year",Year);
-        dateFormat = new SimpleDateFormat("MM");
-        Month = dateFormat.format(date);
-        editor1.putString("Month",Month);
-        dateFormat = new SimpleDateFormat("dd");
-        Day = dateFormat.format(date);
-        editor1.putString("Day",Day);
-        dateFormat = new SimpleDateFormat("HH");
-        Hour = dateFormat.format(date);
-        editor1.putString("Hour",Hour);
-        editor1.putString("Min",Min);
-
-        mNow += 3600000;
-        date = new Date(mNow);
-        dateFormat = new SimpleDateFormat("yyyy");
-        Year = dateFormat.format(date);
-        editor2.putString("Year",Year);
-        dateFormat = new SimpleDateFormat("MM");
-        Month = dateFormat.format(date);
-        editor2.putString("Month",Month);
-        dateFormat = new SimpleDateFormat("dd");
-        Day = dateFormat.format(date);
-        editor2.putString("Day",Day);
-        dateFormat = new SimpleDateFormat("HH");
-        Hour = dateFormat.format(date);
-        editor2.putString("Hour",Hour);
-        editor2.putString("Min",Min);
-
-        editor1.apply();
-        editor2.apply();
         final Button setButton = (Button)findViewById(R.id.setButton);
         final Button cancelButton = (Button)findViewById(R.id.CancelButton);
         final Button colorButton = (Button) findViewById(R.id.color);
@@ -90,7 +57,84 @@ public class ScheduleActivity extends AppCompatActivity {
         final Switch allDaySwitch = (Switch) findViewById(R.id.allDaySwitch);
         final LinearLayout startDayLayout = (LinearLayout) findViewById(R.id.start_Date_Layout);
         final LinearLayout endDayLayout = (LinearLayout) findViewById(R.id.end_Date_Layout);
+        EditText setTitle = (EditText)findViewById(R.id.setTitle);
         colorButton.setBackgroundColor(Color.WHITE);
+
+
+        System.out.println("TagLog : "+msgData.getString("data","NULL"));
+        if(msgData.getString("data","NULL").equals("!!")) {
+            SimpleDateFormat dateFormat;
+            long mNow = System.currentTimeMillis();
+            Min = "00";
+            Date date = new Date(mNow);
+            dateFormat = new SimpleDateFormat("yyyy");
+            Year = dateFormat.format(date);
+            editor1.putString("Year", Year);
+            dateFormat = new SimpleDateFormat("MM");
+            Month = dateFormat.format(date);
+            editor1.putString("Month", Month);
+            dateFormat = new SimpleDateFormat("dd");
+            Day = dateFormat.format(date);
+            editor1.putString("Day", Day);
+            dateFormat = new SimpleDateFormat("HH");
+            Hour = dateFormat.format(date);
+            editor1.putString("Hour", Hour);
+            editor1.putString("Min", Min);
+
+            mNow += 3600000;
+            date = new Date(mNow);
+            dateFormat = new SimpleDateFormat("yyyy");
+            Year = dateFormat.format(date);
+            editor2.putString("Year", Year);
+            dateFormat = new SimpleDateFormat("MM");
+            Month = dateFormat.format(date);
+            editor2.putString("Month", Month);
+            dateFormat = new SimpleDateFormat("dd");
+            Day = dateFormat.format(date);
+            editor2.putString("Day", Day);
+            dateFormat = new SimpleDateFormat("HH");
+            Hour = dateFormat.format(date);
+            editor2.putString("Hour", Hour);
+            editor2.putString("Min", Min);
+            editor1.apply();
+            editor2.apply();
+        }
+        else {
+            String inputData = msgData.getString("data","!!");
+            String[] arrayStr = inputData.split("!");
+            if (!arrayStr[0].equals("")) {
+                Log.i("TagLog : array0 : ",arrayStr[0]);
+                setTitle.setText(arrayStr[0]);
+            }
+            if (!arrayStr[1].equals("")) {
+                Log.i("TagLog : array1 : ",arrayStr[1]);
+                String firstStr = arrayStr[1];
+                Log.i("TagLog : first : ",firstStr);
+                String[] startStr = arrayStr[1].split(" ");
+                Log.i("TagLog : 1 - array0 : ",startStr[0]);
+                Log.i("TagLog : 1 - array0 : ",startStr[1]);
+                Log.i("TagLog : 1 - array0 : ",startStr[2]);
+                Log.i("TagLog : 1 - array0 : ",startStr[3]);
+                Log.i("TagLog : 1 - array0 : ",startStr[4]);
+                editor1.putString("Year",startStr[0]);
+                editor1.putString("Month",startStr[1]);
+                editor1.putString("Day",startStr[2]);
+                editor1.putString("Hour",startStr[3]);
+                editor1.putString("Min",startStr[4]);
+                editor1.apply();
+            }
+            if (!arrayStr[2].equals("")) {
+                Log.i("TagLog : array2 : ",arrayStr[2]);
+                String[] endStr = arrayStr[2].split(" ");
+                editor2.putString("Year",endStr[0]);
+                editor2.putString("Month",endStr[1]);
+                editor2.putString("Day",endStr[2]);
+                editor2.putString("Hour",endStr[3]);
+                editor2.putString("Min",endStr[4]);
+                editor2.apply();
+            }
+        }
+        msgEditor.putString("data","");
 
         startDButton.setText(setStartDate.getString("Year","")+"/"+setStartDate.getString("Month",""+"")+"/"
                 +setStartDate.getString("Day","")+" "+setStartDate.getString("Hour","")+":"+setStartDate.getString("Min",""));
@@ -227,5 +271,9 @@ public class ScheduleActivity extends AppCompatActivity {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
+    }
+
+    public void canthis() {
+
     }
 }
